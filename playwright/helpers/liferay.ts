@@ -14,19 +14,50 @@ import {expect, Frame, Locator, Page} from '@playwright/test';
  * bundle to globalMenu. A test pinned to either reports the other release as
  * a product with no menus at all.
  */
+//
+// How to open each menu, across DXP versions.
+//
+// The trigger is not the same from one release to the next: on 2026.q3 the
+// Applications Menu button announces itself as "Open Applications Menu",
+// while on 2026.q1 LTS it carries no aria-label at all - only
+// data-qa-id="applicationsMenu". A course workspace pins its own release, so
+// both have to work or a suite passes on one bundle and cannot find the menu
+// on another.
+//
+// data-qa-id is the stable anchor and is listed first for that reason; the
+// aria-labels follow as a fallback for builds that lack it.
+//
 const MENUS: Record<string, {root: string; trigger: string}> = {
 	'Global Menu': {
-		root: '.dropdown-menu.show',
+		//
+		// And it is not the same kind of thing either: on 2026.q1 LTS this
+		// menu is a modal (.applications-menu-modal), on 2026.q3 a dropdown
+		// (.global-menu). A root matching only one means the menu opens and
+		// the code concludes it did not.
+		//
+		root:
+			'.applications-menu-modal.show, .applications-menu-wrapper, ' +
+			'.global-menu, .dropdown-menu.show',
 		trigger:
-			'[data-qa-id="globalMenu"], [data-testid="globalMenu"], ' +
-			'[aria-label="Open Applications Menu"]',
+			'[data-qa-id="applicationsMenu"], [data-qa-id="globalMenu"], ' +
+			'[data-testid="globalMenu"], ' +
+			'[aria-label="Open Applications Menu"], ' +
+			'[aria-label="Applications Menu"]',
 	},
 	'Site Menu': {
+		//
+		// Left as the dropdown alone. Adding the q1 sidebar class here made
+		// this match a panel that is always present, so the code believed a
+		// menu was standing over every screen - and Enabling the
+		// Accessibility Menu, which had been passing, stopped being able to
+		// click anything. Verified by reverting this line alone.
+		//
 		root: '.product-menu',
 		trigger:
 			'[data-qa-id="productMenu"], ' +
 			'[data-qa-id="sideNavigationToggler"], ' +
-			'[aria-label="Open Product Menu"]',
+			'[aria-label="Open Product Menu"], ' +
+			'[aria-label="Toggle Product Menu"]',
 	},
 };
 
@@ -54,13 +85,47 @@ const SETTLE = 900;
  * Reads the value back afterwards. A field that fills itself in from another
  * accepts the typing and ends up holding both values, and nothing throws.
  */
-export async function fill(page: Page, field: string, value: string) {
+export async function fill(
+	page: Page,
+	field: string,
+	value: string,
+	where: {language?: string; section?: string} = {}
+) {
+	//
+	// The panel the field sits in, opened when the lesson named one.
+	//
+	// A page's configuration repeats field names across its panels, and a
+	// collapsed panel's fields are not on the screen at all - so naming the
+	// panel is both how the right field is found and how it becomes
+	// reachable.
+	//
+	if (where.section) {
+		await openSection(page, where.section);
+	}
+
+	//
+	// The locale the value belongs to.
+	//
+	// A localised field renders one input per language, all carrying the same
+	// label. Typing by label alone puts the Spanish text in the English box
+	// and then reads it back successfully - a wrong result that reports
+	// itself as a right one, which is the worst thing this can do.
+	//
+	if (where.language) {
+		await chooseLanguage(page, where.language);
+	}
+
 	const input = await findField(page, field);
 
 	expect(
 		input,
-		`no field named "${field}" is on this screen, in any frame`
+		where.language
+			? `no field named "${field}" for ${where.language} is on this ` +
+				`screen, in any frame`
+			: `no field named "${field}" is on this screen, in any frame`
 	).not.toBeNull();
+
+	await input!.scrollIntoViewIfNeeded({timeout: 4000}).catch(() => undefined);
 
 	await input!.fill(value);
 
@@ -68,6 +133,78 @@ export async function fill(page: Page, field: string, value: string) {
 		input!,
 		`the field "${field}" does not hold what was typed into it`
 	).toHaveValue(value);
+}
+
+/** Open a named panel of a configuration sidebar, if it is not already open. */
+async function openSection(page: Page, section: string) {
+	const escaped = section.replace(/"/g, '\\"');
+
+	for (const frame of page.frames()) {
+		const heading = frame
+			.locator(
+				`button:has-text("${escaped}"), [role="button"]:has-text("${escaped}"), ` +
+					`[role="tab"]:has-text("${escaped}"), a:has-text("${escaped}")`
+			)
+			.first();
+
+		if (!(await heading.count().catch(() => 0))) {
+			continue;
+		}
+
+		const open = await heading
+			.evaluate(
+				(node) =>
+					node.getAttribute('aria-expanded') === 'true' ||
+					node.getAttribute('aria-selected') === 'true'
+			)
+			.catch(() => false);
+
+		if (!open) {
+			await heading.click({timeout: 4000}).catch(() => undefined);
+
+			await page.waitForTimeout(SETTLE);
+		}
+
+		return;
+	}
+}
+
+/** Switch a localisable form to the language a value belongs to. */
+async function chooseLanguage(page: Page, language: string) {
+	const escaped = language.replace(/"/g, '\\"');
+
+	for (const frame of page.frames()) {
+		const selector = frame
+			.locator(
+				'[data-qa-id="languageSelector"], [aria-label*="anguage"], ' +
+					'button[class*="language"], .language-flags button'
+			)
+			.first();
+
+		if (!(await selector.count().catch(() => 0))) {
+			continue;
+		}
+
+		await selector.click({timeout: 4000}).catch(() => undefined);
+
+		await page.waitForTimeout(SETTLE);
+
+		const option = frame
+			.locator(
+				`[role="menuitem"]:has-text("${escaped}"), ` +
+					`[role="option"]:has-text("${escaped}"), ` +
+					`button:has-text("${escaped}"), a:has-text("${escaped}")`
+			)
+			.first();
+
+		if (await option.count().catch(() => 0)) {
+			await option.click({timeout: 4000}).catch(() => undefined);
+
+			await page.waitForTimeout(SETTLE);
+		}
+
+		return;
+	}
 }
 
 /**
@@ -657,7 +794,27 @@ export async function press(page: Page, label: string, within?: string) {
 			await control.click({timeout: 4000});
 		}
 		catch (error) {
-			continue;
+			//
+			// A menu left standing over the control is the usual reason a
+			// click cannot land. Opening the Site Menu to reach an
+			// application leaves its panel covering the screen the
+			// application rendered, so the very next step is blocked by the
+			// menu that got it there.
+			//
+			// Closing it is what a reader does without noticing, and it is
+			// done only after a click has actually failed - pressing Escape
+			// at every step would shut the form the previous step opened.
+			//
+			if (!(await closeOpenMenus(page))) {
+				continue;
+			}
+
+			try {
+				await control.click({timeout: 4000});
+			}
+			catch (again) {
+				continue;
+			}
 		}
 
 		//
@@ -857,6 +1014,33 @@ async function findField(page: Page, field: string): Promise<Locator | null> {
 	}
 
 	return null;
+}
+
+/** Close any menu panel standing over the screen. True if one was closed. */
+async function closeOpenMenus(page: Page): Promise<boolean> {
+	let closed = false;
+
+	for (const menu of Object.values(MENUS)) {
+		const panel = page.locator(menu.root).first();
+
+		if (!(await panel.isVisible().catch(() => false))) {
+			continue;
+		}
+
+		await page
+			.locator(menu.trigger)
+			.first()
+			.click({timeout: 3000})
+			.catch(() => undefined);
+
+		await panel
+			.waitFor({state: 'hidden', timeout: 3000})
+			.catch(() => undefined);
+
+		closed = true;
+	}
+
+	return closed;
 }
 
 /** The address plus the shape of the visible text, as a cheap fingerprint. */
