@@ -26,8 +26,7 @@ test('Adding Users to a Site', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 2. Open the *Global Menu* (![](../../images/icon-applications-menu.png)) and select *Clarity Public Enterprise We
-	await press(page, 'Global Menu');
-	await press(page, 'Clarity Public Enterprise Website');
+	await openMenu(page, 'Global Menu', null, 'Clarity Public Enterprise Website');
 
 	// Step 3. Open the *Site Menu* (![](../../images/icon-product-menu.png)), expand *People*, and select *Memberships*.
 	await openMenu(page, 'Site Menu', 'People', 'Memberships');

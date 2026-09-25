@@ -71,6 +71,62 @@ export async function fill(page: Page, field: string, value: string) {
 }
 
 /**
+ * Drag one thing onto another, as a page-editor step describes.
+ *
+ * Playwright's dragTo() dispatches HTML5 drag events, which Liferay's page
+ * editor does not listen for - it tracks the pointer. So the pointer is what
+ * this moves, which is how liferay-portal's own page editor tests do it
+ * (modules/test/playwright/pages/layout-content-page-editor-web).
+ *
+ * Hovering the target at its centre matters: dropping on an edge lands the
+ * fragment in the neighbouring container, which looks like a passing step and
+ * builds the wrong page.
+ */
+export async function drag(page: Page, source: string, target: string) {
+	const from = await findDraggable(page, source);
+
+	expect(
+		from,
+		`nothing named "${source}" on this screen can be dragged`
+	).not.toBeNull();
+
+	const onto = await findDropTarget(page, target);
+
+	expect(
+		onto,
+		`there is nowhere named "${target}" on this screen to drop "${source}" into`
+	).not.toBeNull();
+
+	await from!.scrollIntoViewIfNeeded({timeout: 4000}).catch(() => undefined);
+
+	await from!.hover({timeout: 8000});
+
+	await page.mouse.down();
+
+	//
+	// Moved in steps rather than jumped. A single hover can land without the
+	// editor registering a drag at all, because it needs pointer movement to
+	// decide something is being dragged.
+	//
+	const box = await onto!.boundingBox();
+
+	if (box) {
+		await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, {
+			steps: 12,
+		});
+	}
+	else {
+		await onto!.hover({force: true, timeout: 8000});
+	}
+
+	await page.waitForTimeout(300);
+
+	await page.mouse.up();
+
+	await page.waitForTimeout(SETTLE);
+}
+
+/**
  * Open a menu and click through to an application, as the step describes.
  *
  * Nothing is cached. The Site Menu lists the applications of the site the
@@ -78,6 +134,45 @@ export async function fill(page: Page, field: string, value: string) {
  * menu read once is wrong for some steps however carefully it was read.
  */
 export async function openMenu(
+	page: Page,
+	menuName: string,
+	section: string | null,
+	application: string
+) {
+	//
+	// Tried again rather than given up on, which is what a reader does when a
+	// menu does not open.
+	//
+	// Measured: the first test run after the instance restarts fails on the
+	// Global Menu, and the same test passes when it runs eighth. The page
+	// renders before the menu it carries is usable, and no readiness check on
+	// the server side predicts it - so the recovery belongs here.
+	//
+	let failure: unknown;
+
+	for (let attempt = 0; attempt < 3; attempt++) {
+		try {
+			await reachApplication(page, menuName, section, application);
+
+			return;
+		}
+		catch (error) {
+			failure = error;
+
+			await page.reload({timeout: 20000}).catch(() => undefined);
+
+			await page
+				.waitForLoadState('domcontentloaded', {timeout: 10000})
+				.catch(() => undefined);
+
+			await page.waitForTimeout(SETTLE);
+		}
+	}
+
+	throw failure;
+}
+
+async function reachApplication(
 	page: Page,
 	menuName: string,
 	section: string | null,
@@ -149,7 +244,21 @@ export async function openMenu(
 	// Groups application in the Global Menu", which never states a tab, finds
 	// nothing while standing on the tab that happened to be showing.
 	//
-	if (!section) {
+	//
+	// Looked for where the menu is already standing, before going anywhere.
+	//
+	// Some applications are on the menu's own first screen - a site is, and
+	// "Open the Global Menu and select Clarity Public Enterprise Website"
+	// names one. Walking the sections first navigated away from the panel
+	// holding exactly what was wanted.
+	//
+	if (
+		!section &&
+		!(await page
+			.locator(`${menu.root} a:has-text("${application}")`)
+			.count()
+			.catch(() => 0))
+	) {
 
 		//
 		// Each section is tried in turn, reopening the menu before every one.
@@ -265,7 +374,7 @@ export async function openMenu(
 	await expect(
 		link,
 		`the ${menuName} on this screen offers no application named "${application}"`
-	).toHaveCount(1, {timeout: 15000});
+	).toHaveCount(1, {timeout: 8000});
 
 	await link.click();
 
@@ -584,11 +693,31 @@ export async function press(page: Page, label: string, within?: string) {
 			await page.waitForTimeout(250);
 		}
 
-		expect(
-			after,
-			`"${label}" was pressed and nothing on the screen changed, so ` +
-				`whatever it was meant to open did not open`
-		).not.toBe(before);
+		//
+		// A control that became selected counts as having worked, even where
+		// the screen reads the same.
+		//
+		// Pressing a tab swaps one panel for another, and the two often carry
+		// almost identical text - so comparing what the screen says reported
+		// a working click as a click that did nothing. What the control says
+		// about itself is the better evidence here.
+		//
+		const selected = await control
+			.evaluate(
+				(node) =>
+					node.getAttribute('aria-selected') === 'true' ||
+					node.getAttribute('aria-expanded') === 'true' ||
+					node.classList.contains('active')
+			)
+			.catch(() => false);
+
+		if (!selected) {
+			expect(
+				after,
+				`"${label}" was pressed and nothing on the screen changed, so ` +
+					`whatever it was meant to open did not open`
+			).not.toBe(before);
+		}
 
 		return;
 	}
@@ -610,6 +739,54 @@ export async function press(page: Page, label: string, within?: string) {
 				`be covered, disabled, or outside the visible area`
 			: `no control reading or announcing "${label}" is on this screen`
 	);
+}
+
+async function findDraggable(
+	page: Page,
+	name: string
+): Promise<Locator | null> {
+	const escaped = name.replace(/"/g, '\\"');
+
+	for (const frame of page.frames()) {
+		const candidate = frame
+			.locator(
+				`[draggable="true"]:has-text("${escaped}"), ` +
+					`.page-editor__sidebar__fragment-card:has-text("${escaped}"), ` +
+					`li:has-text("${escaped}")`
+			)
+			.first();
+
+		if (await candidate.count().catch(() => 0)) {
+			return candidate;
+		}
+	}
+
+	return null;
+}
+
+async function findDropTarget(
+	page: Page,
+	name: string
+): Promise<Locator | null> {
+	const escaped = name.replace(/"/g, '\\"');
+
+	for (const frame of page.frames()) {
+		const candidate = frame
+			.locator(
+				`[class*="drop"]:has-text("${escaped}"), ` +
+					`[class*="container"]:has-text("${escaped}"), ` +
+					`[aria-label*="${escaped}"]`
+			)
+			.last()
+			.or(frame.getByText(name, {exact: false}).last())
+			.first();
+
+		if (await candidate.count().catch(() => 0)) {
+			return candidate;
+		}
+	}
+
+	return null;
 }
 
 async function findField(page: Page, field: string): Promise<Locator | null> {
