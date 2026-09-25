@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -88,7 +88,7 @@ test('Creating Products', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 18. Repeat steps 1-17 to create two more simple products: AquaComfort Plus Dailies and Single Vision Lenses.
-	// Not entered: `AquaComfort Plus Dailies`, `Single Vision Lenses` - chosen from a control rather than typed.
+	// Not entered: `AquaComfort Plus Dailies`, `Single Vision Lenses` - inside a panel this cannot address yet.
 
 	// Screenshot skipped: the step it belongs to was not performed.
 

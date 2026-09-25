@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -48,8 +48,7 @@ test('Creating Clarity`s Calendar Page', async ({page}) => {
 
 	// Step 8. Select the *container* and configure these settings in the configuration side panel:
 	await press(page, 'container');
-	// Not entered: General - chosen from a control rather than typed.
-	// Not entered: Styles - inside a panel or a language this cannot address yet.
+	// Not entered: General, Styles - chosen from a control rather than typed.
 
 	// Step 9. From the *Fragments* panel, drag and drop a *Heading* fragment into the container.
 	// Not performed: no control or value named in this step.
@@ -69,14 +68,16 @@ test('Creating Clarity`s Calendar Page', async ({page}) => {
 
 	// Step 14. Select the *Month* view and click any date before your current date, enter `Past Job Fair` as the name, and cl
 	await press(page, 'Month');
+	await fill(page, 'name', 'Past Job Fair');
 	await press(page, 'Save');
 
 	// Step 15. Click any date that is after your current date, enter `Upcoming Job Fair` as the name, and click *Save*.
+	await fill(page, 'name', 'Upcoming Job Fair');
 	await press(page, 'Save');
 
 	// Step 16. Add one more event after Upcoming Job Fair named `Campus Recruiting Event`.
-	// Not performed: no control or value named in this step.
+	await fill(page, 'Name', 'Campus Recruiting Event');
 
-	// Screenshot skipped: the step it belongs to was not performed.
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/06.png'});
 
 });

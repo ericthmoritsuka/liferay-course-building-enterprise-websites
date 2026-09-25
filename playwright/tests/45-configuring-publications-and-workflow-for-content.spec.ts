@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -77,7 +77,7 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await press(page, 'Editor');
 
 	// Step 17. For People, enter `Christian Carter` and select his user profile.
-	// Not performed: no control or value named in this step.
+	await fill(page, 'People', 'Christian Carter');
 
 	// Step 18. Repeat steps 3-4 to invite Clara Murphy using these values:
 	// Not entered: Clara Murphy - chosen from a control rather than typed.

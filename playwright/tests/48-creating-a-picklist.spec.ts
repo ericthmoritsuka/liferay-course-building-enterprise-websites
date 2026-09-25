@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -32,6 +32,7 @@ test('Creating a Picklist', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 4. Enter `Inquiry Nature` for the Name and click *Save*.
+	await fill(page, 'Name', 'Inquiry Nature');
 	await press(page, 'Save');
 
 	// Step 5. Click on the newly created *Inquiry Nature* picklist to add items to it.
@@ -50,6 +51,7 @@ test('Creating a Picklist', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/02.png'});
 
 	// Step 8. Change the language selector to Spanish (**es_ES**), enter `Ventas` for the name, and click *Save*.
+	await fill(page, 'name', 'Ventas');
 	await press(page, 'Save');
 
 	// Step 9. Repeat steps 7-8 to add a Spanish translation for the other three items:

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -26,7 +26,7 @@ test('Adding Announcements to the Header', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Site Builder', 'Collections');
 
 	// Step 2. Create a new dynamic collection titled `Announcements`.
-	// Not performed: no control or value named in this step.
+	await fill(page, 'Name', 'Announcements');
 
 	// Step 3. While editing the collection, set its Item Type to *Web Content Article* and Item Subtype to *Announcements*.
 	// Not performed: the step does not name a field and a value plainly enough.
@@ -51,6 +51,7 @@ test('Adding Announcements to the Header', async ({page}) => {
 
 	// Step 9. Add a *Collection Display* fragment to the container, select it, and configure these settings:
 	await press(page, 'Collection Display');
+	await fill(page, 'General', '1', {language: 'Maximum Number of Items to Display'});
 	// Not entered: General - chosen from a control rather than typed.
 
 	// Step 10. Add a *Container* fragment inside the collection display, rename it `Announcement`, and configure these settin
@@ -78,7 +79,6 @@ test('Adding Announcements to the Header', async ({page}) => {
 	// Step 16. Select the button's *link* sub-element and configure these settings:
 	await press(page, 'link');
 	// Not entered: Mapping, Link - chosen from a control rather than typed.
-	// Not entered: Link - inside a panel or a language this cannot address yet.
 
 	// Step 17. Adjust the margins and padding for the announcement bar's elements until you are satisfied with it.
 	// Not performed: no control or value named in this step.

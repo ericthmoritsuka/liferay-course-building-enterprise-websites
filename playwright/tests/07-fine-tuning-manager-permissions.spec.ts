@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -57,7 +57,7 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	await press(page, 'Users and Organizations');
 
 	// Step 11. Select this permission:
-	// Not entered: Resource Permissions > User - inside a panel or a language this cannot address yet.
+	// Not entered: Resource Permissions > User - chosen from a control rather than typed.
 
 	// Step 12. Click *Save*.
 	await press(page, 'Save');

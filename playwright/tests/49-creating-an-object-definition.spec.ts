@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -38,7 +38,7 @@ test('Creating an Object Definition', async ({page}) => {
 	await press(page, 'Contact Us');
 
 	// Step 6. In the Details tab, configure these settings:
-	// Not entered: Scope > Scope, Scope > Panel Link, Configuration > Show Widget in Page Builder, Configuration > Enable Entry History in Audit Framework - inside a panel or a language this cannot address yet.
+	// Not entered: Scope > Scope, Scope > Panel Link, Configuration > Show Widget in Page Builder, Configuration > Enable Entry History in Audit Framework - chosen from a control rather than typed.
 
 	// Step 7. Click *Save*.
 	await press(page, 'Save');
@@ -56,7 +56,7 @@ test('Creating an Object Definition', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/03.png'});
 
 	// Step 10. Repeat the previous step to create the remaining six fields:
-	// Not entered: `Email Address`, `Phone`, `Nature of Inquiry`, `State or Province`, `City`, `Comment` - chosen from a control rather than typed.
+	// Not entered: `Email Address`, `Phone`, `Nature of Inquiry`, `State or Province`, `City`, `Comment` - inside a panel this cannot address yet.
 
 	// Screenshot skipped: the step it belongs to was not performed.
 

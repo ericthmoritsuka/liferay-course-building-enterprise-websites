@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -21,6 +21,12 @@ test.use(CAPTURE);
 
 test('Creating a Secondary Master Page', async ({page}) => {
 	await signIn(page, 'walter');
+
+	//
+	// This exercise continues from the one before it, which left a
+	// screen open that a fresh browser does not have.
+	//
+	await openPageSettings(page, 'Masters tab of the');
 
 	// Step 1. While in the Masters tab of the Page Templates application, click *Actions* (![](../../images/icon-actions.png
 	await press(page, 'Actions', 'Primary Master Page');

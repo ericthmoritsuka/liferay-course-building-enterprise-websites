@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -40,7 +40,7 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	// Screenshot skipped: the step it belongs to was not performed.
 
 	// Step 6. Select the widget and configure this setting:
-	// Not entered: General > Frame - inside a panel or a language this cannot address yet.
+	// Not entered: General > Frame - chosen from a control rather than typed.
 
 	// Step 7. From the *Components* panel, drag and drop a *Type Facet* widget into the grid's left module.
 	// Not performed: the step does not name a field and a value plainly enough.
@@ -127,8 +127,7 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 
 	// Step 27. Go to the *Link* tab and configure these settings:
 	await press(page, 'Link');
-	// Not entered: Link - chosen from a control rather than typed.
-	// Not entered: Page - inside a panel or a language this cannot address yet.
+	// Not entered: Link, Page - chosen from a control rather than typed.
 
 	// Step 28. Click *Publish*.
 	await press(page, 'Publish');

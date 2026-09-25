@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -39,6 +39,7 @@ test('Creating Custom Fragments', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/03.png'});
 
 	// Step 5. For name, enter `Search Button` and click *Add*.
+	await fill(page, 'name', 'Search Button');
 	await press(page, 'Add');
 
 	// Step 6. Go to the *Configuration* tab.

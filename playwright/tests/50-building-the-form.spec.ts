@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -50,8 +50,7 @@ test('Building the Form', async ({page}) => {
 
 	// Step 8. Select the *Localization Select* fragment and configure these settings:
 	await press(page, 'Localization Select');
-	// Not entered: Styles - chosen from a control rather than typed.
-	// Not entered: General - inside a panel or a language this cannot address yet.
+	// Not entered: General, Styles - chosen from a control rather than typed.
 
 	// Step 9. Drag and drop the field fragments into this order:
 	// Not performed: no control or value named in this step.

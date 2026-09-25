@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -42,6 +42,7 @@ test('Search Blueprints with Custom Fields', async ({page}) => {
 
 	// Step 6. Select *Ian Miller*, scroll down to the bottom, and enter `555777` for the Registrationid.
 	await press(page, 'Ian Miller');
+	await fill(page, 'Registrationid', '555777');
 
 	// Step 7. Click *Save*.
 	await press(page, 'Save');
@@ -50,7 +51,7 @@ test('Search Blueprints with Custom Fields', async ({page}) => {
 	await openMenu(page, 'Global Menu', 'Applications', 'Blueprints');
 
 	// Step 9. Create a new blueprint titled `Registration ID`.
-	// Not performed: no control or value named in this step.
+	await fill(page, 'Name', 'Registration ID');
 
 	// Step 10. In the right configuration menu, click *Add* for Filter by Exact Terms Match.
 	await press(page, 'Add', 'Filter by Exact Terms Match');

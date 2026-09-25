@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -49,15 +49,13 @@ test('Designing Clarity\'s Master Pages', async ({page}) => {
 
 	// Step 8. Select the *Header Announcement Bar* and configure these settings in the right side panel:
 	await press(page, 'Header Announcement Bar');
-	// Not entered: General - chosen from a control rather than typed.
-	// Not entered: Styles - inside a panel or a language this cannot address yet.
+	// Not entered: General, Styles - chosen from a control rather than typed.
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/09.png'});
 
 	// Step 9. Select the *Header Navigation Bar* container and configure these settings:
 	await press(page, 'Header Navigation Bar');
-	// Not entered: General - chosen from a control rather than typed.
-	// Not entered: Styles - inside a panel or a language this cannot address yet.
+	// Not entered: General, Styles - chosen from a control rather than typed.
 
 	// Step 10. Add a *Grid* element to the Header Navigation Bar container.
 	// Not performed: no control or value named in this step.

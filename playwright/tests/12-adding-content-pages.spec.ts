@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -35,6 +35,7 @@ test('Adding Content Pages', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/04-adding-pages-to-claritys-site/images/06.png'});
 
 	// Step 4. For name, enter `FAQ` and click *Add*.
+	await fill(page, 'name', 'FAQ');
 	await press(page, 'Add');
 
 	// Step 5. For now, leave the page blank and click *Publish*.

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -53,9 +53,9 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 	await press(page, 'New');
 
 	// Step 10. Enter `Future Events` for the title and toggle Enable as a Collection Provider to enabled.
-	// Not performed: the step does not name a field and a value plainly enough.
+	await fill(page, 'title', 'Future Events');
 
-	// Screenshot skipped: the step it belongs to was not performed.
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/08.png'});
 
 	// Step 11. Click *Create*.
 	await press(page, 'Create');

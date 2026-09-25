@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -180,7 +180,7 @@ test('Setting Up the Product Pages', async ({page}) => {
 	// Screenshot skipped: the step it belongs to was not performed.
 
 	// Step 45. In the Product Details container's Description Container, map these fragments with their corresponding product
-	// Not entered: Product Name, SKU, Description - inside a panel or a language this cannot address yet.
+	// Not entered: Product Name, SKU, Description - chosen from a control rather than typed.
 
 	// Step 46. Select the button's *link* sub-element and configure these settings:
 	await press(page, 'link');
@@ -195,13 +195,13 @@ test('Setting Up the Product Pages', async ({page}) => {
 	await press(page, 'Heading');
 
 	// Step 49. Map fragments in the Specifications container's nested grid to their fields:
-	// Not entered: Specification Name, Specification Value - inside a panel or a language this cannot address yet.
+	// Not entered: Specification Name, Specification Value - chosen from a control rather than typed.
 
 	// Step 50. In the Attachments container, double click the *Heading* fragment and change its text to `Attachments`.
 	await press(page, 'Heading');
 
 	// Step 51. Map this fragment in the Attachments container's nested grid to its field:
-	// Not entered: Attachment Name - inside a panel or a language this cannot address yet.
+	// Not entered: Attachment Name - chosen from a control rather than typed.
 
 	// Step 52. Select the Attachment grid's *Download* button and set these values in the configuration side panel:
 	await press(page, 'Download');
@@ -210,7 +210,6 @@ test('Setting Up the Product Pages', async ({page}) => {
 	// Step 53. Select the Download button's *link* sub-element and configure these settings:
 	await press(page, 'link');
 	// Not entered: Link - chosen from a control rather than typed.
-	// Not entered: Link - inside a panel or a language this cannot address yet.
 
 	// Step 54. Double click the *Download* button and change its text to `Download`.
 	await press(page, 'Download');

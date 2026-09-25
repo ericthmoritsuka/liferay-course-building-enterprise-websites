@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -30,6 +30,7 @@ test('Creating a Dynamic Collection', async ({page}) => {
 	await press(page, 'Dynamic Collection');
 
 	// Step 3. For Title, enter `FAQ - Retail Partners` and click *Save*.
+	await fill(page, 'Title', 'FAQ - Retail Partners');
 	await press(page, 'Save');
 
 	// Step 4. For Item Type, select Single Item Type > *Web Content Article*.

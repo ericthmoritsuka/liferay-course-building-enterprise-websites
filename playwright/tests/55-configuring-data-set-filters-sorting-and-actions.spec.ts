@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -29,7 +29,7 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 
 	// Step 2. Enter these details:
 	await fill(page, 'Name', 'Create Date');
-	// Not entered: Filter By > Select - inside a panel or a language this cannot address yet.
+	// Not entered: Filter By > Select - chosen from a control rather than typed.
 
 	// Step 3. Click *Save* to**create the filter.
 	await press(page, 'Save');
@@ -40,7 +40,7 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 
 	// Step 5. Create a new filter with these details:
 	await fill(page, 'Name', 'Nature of Inquiry');
-	// Not entered: Filter By > Select, Filter Source > Source, Filter Source > Picklist - inside a panel or a language this cannot address yet.
+	// Not entered: Filter By > Select, Filter Source > Source, Filter Source > Picklist - chosen from a control rather than typed.
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/13.png'});
 
@@ -73,7 +73,8 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	await press(page, 'Add');
 	await fill(page, 'Label', 'View');
 	await fill(page, 'Icon', 'view');
-	// Not entered: Action Behavior > Type, Action Behavior > Headless Action Key - inside a panel or a language this cannot address yet.
+	await fill(page, 'Headless Action Key', 'get', {section: 'Action Behavior'});
+	// Not entered: Action Behavior > Type - chosen from a control rather than typed.
 
 	// Step 12. Open a new browser tab and go to `http://localhost:8080/web/clarity`
 	// Not performed: no control or value named in this step.
@@ -98,7 +99,12 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	// Step 18. Repeat step 11 to create a second action:
 	await fill(page, 'Label', 'Delete');
 	await fill(page, 'Icon', 'trash');
-	// Not entered: Action Behavior > Type, Action Behavior > Method, Action Behavior > URL, Action Behavior > Headless Action Key, Action Behavior > Confirmation Message, Action Behavior > Message Type, Status Messages > Success, Status Messages > Error - inside a panel or a language this cannot address yet.
+	await fill(page, 'URL', 'http://localhost:8080/o/c/contactuses/{id}', {section: 'Action Behavior'});
+	await fill(page, 'Headless Action Key', 'delete', {section: 'Action Behavior'});
+	await fill(page, 'Confirmation Message', 'Are you sure you want to delete this entry?', {section: 'Action Behavior'});
+	await fill(page, 'Success', 'Entry successfully deleted.', {section: 'Status Messages'});
+	await fill(page, 'Error', 'Error deleting entry.', {section: 'Status Messages'});
+	// Not entered: Action Behavior > Type, Action Behavior > Method, Action Behavior > Message Type - chosen from a control rather than typed.
 
 	// Step 19. Click *Save*.
 	await press(page, 'Save');

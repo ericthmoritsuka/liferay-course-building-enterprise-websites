@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -21,6 +21,12 @@ test.use(CAPTURE);
 
 test('Configuring Allowed Fragments', async ({page}) => {
 	await signIn(page, 'walter');
+
+	//
+	// This exercise continues from the one before it, which left a
+	// screen open that a fresh browser does not have.
+	//
+	await openPageSettings(page, 'Primary Master Page');
 
 	// Step 1. While editing the Primary Master Page template, click *Configure Allowed Fragments* in the Page Body container
 	await press(page, 'Configure Allowed Fragments');

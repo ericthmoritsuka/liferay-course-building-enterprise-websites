@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -29,6 +29,7 @@ test('Adding Categories to a Vocabulary', async ({page}) => {
 
 	// Step 2. Click *New* and enter `Retail Partners` for Name.
 	await press(page, 'New');
+	await fill(page, 'Name', 'Retail Partners');
 
 	// Step 3. Click *Save* to add the category.
 	await press(page, 'Save');

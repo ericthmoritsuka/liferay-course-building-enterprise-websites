@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -50,9 +50,12 @@ test('Creating Web Content Articles', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/08.png'});
 
 	// Step 8. Enter these values:
-	// Not entered: Metadata > Title, Fields > Message, Fields > Link Text, Fields > Link to Page - inside a panel or a language this cannot address yet.
+	await fill(page, 'Title', 'Product Innovations', {section: 'Metadata'});
+	await fill(page, 'Message', 'See Clarity\'s latest eyewear innovations!', {section: 'Fields'});
+	await fill(page, 'Link Text', 'Learn more', {section: 'Fields'});
+	// Not entered: Fields > Link to Page - chosen from a control rather than typed.
 
-	// Screenshot skipped: the step it belongs to was not performed.
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/09.png'});
 
 	// Step 9. Click *Publish*.
 	await press(page, 'Publish');
@@ -65,7 +68,7 @@ test('Creating Web Content Articles', async ({page}) => {
 	await press(page, 'Retail Partners');
 
 	// Step 12. Create these three FAQ articles:
-	// Not entered: `Can I become a retail partner?`, `What types of eyewear do you offer?` - chosen from a control rather than typed.
+	// Not entered: `Can I become a retail partner?`, `Do you have retail partners where I can try on your eyewear?`, `What types of eyewear do you offer?` - chosen from a control rather than typed.
 
 	// Screenshot skipped: the step it belongs to was not performed.
 

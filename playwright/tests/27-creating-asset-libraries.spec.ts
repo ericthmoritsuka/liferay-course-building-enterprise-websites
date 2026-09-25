@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -30,6 +30,7 @@ test('Creating Asset Libraries', async ({page}) => {
 
 	// Step 3. Click *New* and enter `Clarity Branding and Logo` for the name.
 	await press(page, 'New');
+	await fill(page, 'name', 'Clarity Branding and Logo');
 
 	// Step 4. Click *Save*. This creates a library and redirects you to its configuration page.
 	await press(page, 'Save');

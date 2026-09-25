@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -39,8 +39,7 @@ test('Creating a Vocabulary', async ({page}) => {
 	await fill(page, 'Name', 'FAQ');
 	await fill(page, 'External Reference Code', 'faq-vocabulary');
 	await fill(page, 'Description', 'Categories for FAQ articles.');
-	// Not entered: Allow Multiple Categories, Visibility - chosen from a control rather than typed.
-	// Not entered: Associated Asset Types > Asset Types, Associated Asset Types > Asset Types > Subtype, Associated Asset Types > Required - inside a panel or a language this cannot address yet.
+	// Not entered: Allow Multiple Categories, Visibility, Associated Asset Types > Asset Types, Associated Asset Types > Asset Types > Subtype, Associated Asset Types > Required - chosen from a control rather than typed.
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/05-organizing-claritys-content/images/05.png'});
 

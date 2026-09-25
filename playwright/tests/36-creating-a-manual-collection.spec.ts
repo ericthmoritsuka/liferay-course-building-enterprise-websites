@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -33,6 +33,7 @@ test('Creating a Manual Collection', async ({page}) => {
 	await press(page, 'Manual Collection');
 
 	// Step 4. For Title, enter `Helpful Articles` and click *Save*.
+	await fill(page, 'Title', 'Helpful Articles');
 	await press(page, 'Save');
 
 	// Step 5. For Item Type, select *Web Content Article*.

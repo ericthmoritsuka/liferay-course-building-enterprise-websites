@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -48,8 +48,7 @@ test('Defining Role Permissions', async ({page}) => {
 	await press(page, 'Asset Libraries');
 
 	// Step 7. Select these permissions:
-	// Not entered: Application Permissions - chosen from a control rather than typed.
-	// Not entered: Resource Permissions > Asset Library Entry - inside a panel or a language this cannot address yet.
+	// Not entered: Application Permissions, Resource Permissions > Asset Library Entry - chosen from a control rather than typed.
 
 	// Step 8. Click *Save*.
 	await press(page, 'Save');
@@ -117,8 +116,7 @@ test('Defining Role Permissions', async ({page}) => {
 	await press(page, 'Documents and Media');
 
 	// Step 24. Select these permissions:
-	// Not entered: General Permissions - chosen from a control rather than typed.
-	// Not entered: Resource Permissions > Documents, Resource Permissions > Documents Folder - inside a panel or a language this cannot address yet.
+	// Not entered: General Permissions, Resource Permissions > Documents, Resource Permissions > Documents Folder - chosen from a control rather than typed.
 
 	// Step 25. Click *Save*.
 	await press(page, 'Save');
@@ -129,8 +127,7 @@ test('Defining Role Permissions', async ({page}) => {
 	await press(page, 'Web Content');
 
 	// Step 27. Select these permissions:
-	// Not entered: General Permissions - chosen from a control rather than typed.
-	// Not entered: Resource Permissions > Web Content, Resource Permissions > Web Content Article, Resource Permissions > Web Content Structure, Resource Permissions > Web Content Template - inside a panel or a language this cannot address yet.
+	// Not entered: General Permissions, Resource Permissions > Web Content, Resource Permissions > Web Content Article, Resource Permissions > Web Content Structure, Resource Permissions > Web Content Template - chosen from a control rather than typed.
 
 	// Step 28. Click *Save*.
 	await press(page, 'Save');
@@ -142,7 +139,7 @@ test('Defining Role Permissions', async ({page}) => {
 
 	// Step 30. Select these permissions and click *Save*:
 	await press(page, 'Save');
-	// Not entered: Resource Permissions > Asset Categories - inside a panel or a language this cannot address yet.
+	// Not entered: Resource Permissions > Asset Categories - chosen from a control rather than typed.
 
 	// Step 31. Refresh the tab where you're impersonating Christian Carter.
 	// Not performed: no control or value named in this step.
@@ -159,7 +156,7 @@ test('Defining Role Permissions', async ({page}) => {
 
 	// Step 34. Select this permission and click *Save*:
 	await press(page, 'Save');
-	// Not entered: Resource Permissions > Page - inside a panel or a language this cannot address yet.
+	// Not entered: Resource Permissions > Page - chosen from a control rather than typed.
 
 	// Step 35. Refresh the tab where you're impersonating Christian Carter, open the *Global Menu* (![](../../images/icon-app
 	await openMenu(page, 'Global Menu', null, 'Clarity Vision Solutions');

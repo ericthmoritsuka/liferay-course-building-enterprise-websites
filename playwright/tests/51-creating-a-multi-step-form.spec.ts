@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, press} from '../helpers/liferay';
+import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -50,7 +50,7 @@ test('Creating a Multi-Step Form', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 9. Configure these settings for the Stepper fragment:
-	// Not entered: Styles - inside a panel or a language this cannot address yet.
+	// Not entered: Styles - chosen from a control rather than typed.
 
 	// Screenshot skipped: the step it belongs to was not performed.
 
