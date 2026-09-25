@@ -29,7 +29,7 @@ test('Attaching the Workflow to the Object', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Configuration', 'Workflow');
 
 	// Step 3. Click *Edit* for the Contact Us asset type.
-	await press(page, 'Edit');
+	await press(page, 'Edit', 'Contact Us asset type');
 
 	// Step 4. Select the *Contact Us Follow Up* workflow.
 	await press(page, 'Contact Us Follow Up');

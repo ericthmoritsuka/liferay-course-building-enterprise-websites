@@ -42,7 +42,7 @@ test('Displaying Content on the FAQ Page', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/15.png'});
 
 	// Step 5. In the configuration panel for the *Collection Display*, select *None* for Pagination and check *Display All C
-	await press(page, 'None');
+	await press(page, 'None', 'Pagination');
 	await press(page, 'Display All Collection Items');
 
 	// Step 6. Select the *main-text* sub-element and set its Mapping Field to Basic Information > *Title*.

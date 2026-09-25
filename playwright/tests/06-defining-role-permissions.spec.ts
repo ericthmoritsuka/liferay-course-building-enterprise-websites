@@ -26,7 +26,7 @@ test('Defining Role Permissions', async ({page}) => {
 	await openMenu(page, 'Global Menu', 'Control Panel', 'Users and Organizations');
 
 	// Step 2. Click *Actions* (![](../../images/icon-actions.png)) for Christian Carter and select *Impersonate User*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Christian Carter');
 	await press(page, 'Impersonate User');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/04.png'});
@@ -66,8 +66,7 @@ test('Defining Role Permissions', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 12. In the *Global Menu* (![](../../images/icon-applications-menu.png)), go to the *Applications* tab and click *A
-	await press(page, 'Applications');
-	await press(page, 'Asset Libraries');
+	await openMenu(page, 'Global Menu', null, 'Applications');
 
 	// Step 13. Select *Marketing Assets* and click *Memberships*.
 	await press(page, 'Marketing Assets');
@@ -92,7 +91,7 @@ test('Defining Role Permissions', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 18. Click *Actions* (![](../../images/icon-actions.png)) for the Marketing user group and select *Assign Roles*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Marketing user group');
 	await press(page, 'Assign Roles');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/09.png'});

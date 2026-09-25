@@ -31,7 +31,7 @@ test('Creating and Applying a Style Book', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/04.png'});
 
 	// Step 3. Select *Classic Theme* for Create Style Book For.
-	await press(page, 'Classic Theme');
+	await press(page, 'Classic Theme', 'Create Style Book For');
 
 	// Step 4. Name the Style Book `Clarity Style Book` and click *Save*.
 	await press(page, 'Save');

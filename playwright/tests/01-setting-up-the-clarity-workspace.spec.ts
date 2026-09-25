@@ -45,7 +45,7 @@ test('Setting Up the Clarity Workspace', async ({page}) => {
 
 	// Step 8. Go to the *Index Actions* tab and click *Reindex* for All Search Indexes.
 	await press(page, 'Index Actions');
-	await press(page, 'Reindex');
+	await press(page, 'Reindex', 'All Search Indexes');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/03-course-environment-setup/02-setting-up-claritys-workspace/images/02.png'});
 

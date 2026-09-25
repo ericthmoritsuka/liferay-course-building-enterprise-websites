@@ -219,7 +219,7 @@ test('Setting Up the Product Pages', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 56. Click *Actions* (![](../../images/icon-actions.png)) for the Product Details template and select *Mark as Defa
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Product Details template');
 	await press(page, 'Mark as Default');
 
 	// Step 57. View the *Product List* page and select a product.

@@ -53,7 +53,7 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 
 	// Step 10. In the right configuration menu, expand the *Filter* section, and click *Add* for Filter by Exact Terms Match.
 	await press(page, 'Filter');
-	await press(page, 'Add');
+	await press(page, 'Add', 'Filter by Exact Terms Match');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/01.png'});
 
@@ -83,7 +83,7 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 
 	// Step 17. In the right configuration menu, expand the *Boost* section, and click *Add* for Boost All Keywords Match.
 	await press(page, 'Boost');
-	await press(page, 'Add');
+	await press(page, 'Add', 'Boost All Keywords Match');
 
 	// Step 18. For its Text to Match field, enter `VP.`
 	await fill(page, 'Text to Match', 'VP.');

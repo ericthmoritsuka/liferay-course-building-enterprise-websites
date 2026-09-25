@@ -84,7 +84,7 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 18. Click *Actions* (![](../../images/icon-actions.png)) for the Clarity Gradient Container fragment, and select *
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Clarity Gradient Container fragment');
 	await press(page, 'View Usages');
 
 	// Step 19. Check all boxes and click *Propagate*.

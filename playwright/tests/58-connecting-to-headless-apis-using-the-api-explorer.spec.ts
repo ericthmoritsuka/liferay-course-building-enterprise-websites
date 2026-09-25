@@ -58,10 +58,10 @@ test('Connecting to Headless APIs Using the API Explorer', async ({page}) => {
 	// Not performed: the step does not name a field and a value plainly enough.
 
 	// Step 12. For the document field, delete the default JSON content and uncheck *Send empty value*.
-	// Not performed: no control or value named in this step.
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 13. For file field, click *Choose File* and select the `/exercises/module-8/glasses-book.png` file from your cours
-	await press(page, 'Choose File');
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 14. Click *Execute*.
 	await press(page, 'Execute');
@@ -76,10 +76,10 @@ test('Connecting to Headless APIs Using the API Explorer', async ({page}) => {
 	// Not performed: the step does not name a field and a value plainly enough.
 
 	// Step 18. For Request Body, delete the default JSON content.
-	// Not performed: no control or value named in this step.
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 19. Open and copy the contents of the `exercises/module-8/blog-entry.json` file from your course workspace.
-	// Not performed: no control or value named in this step.
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 20. Paste the structure into the postSiteBlogPosting's Request Body field.
 	// Not performed: no control or value named in this step.

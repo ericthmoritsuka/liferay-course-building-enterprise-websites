@@ -50,7 +50,7 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Content & Data', 'Web Content');
 
 	// Step 10. In the Web Content tab, click *Actions* (![](../../images/icon-actions.png)) for the Articles folder and selec
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Articles folder');
 	await press(page, 'Edit');
 
 	// Step 11. Expand the *Structure Restrictions and Workflow* section and select *Set the default workflow for the folder's
@@ -65,10 +65,10 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/05.png'});
 
 	// Step 14. Go to the *Publications* application in the Global Menu (![](../../images/icon-applications-menu.png)).
-	await press(page, 'Publications');
+	await openMenu(page, 'Global Menu', null, 'Publications');
 
 	// Step 15. Click *Actions* (![](../../images/icon-actions.png)) for Article Publication, and select *Invite Users*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Article Publication');
 	await press(page, 'Invite Users');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/06.png'});

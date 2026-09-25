@@ -29,7 +29,7 @@ test('Updating Menu Display Fragments', async ({page}) => {
 	await press(page, 'Menu Display');
 
 	// Step 3. In the configuration right side panel, click *Change Source* (![](../../images/icon-change.png)) for the menu'
-	await press(page, 'Change Source');
+	await press(page, 'Change Source', 'menu\'s source');
 
 	// Step 4. Click *Header Page Menu* and click *Select This Level*.
 	await press(page, 'Header Page Menu');

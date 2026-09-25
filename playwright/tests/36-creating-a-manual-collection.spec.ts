@@ -76,7 +76,7 @@ test('Creating a Manual Collection', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/07.png'});
 
 	// Step 15. In the configuration panel, select *None* for Pagination.
-	await press(page, 'None');
+	await press(page, 'None', 'Pagination');
 
 	// Step 16. Within the Collection Display's Collection Item, select the *Clarity Card* fragment and note the five sub-elem
 	await press(page, 'Clarity Card');
@@ -109,7 +109,7 @@ test('Creating a Manual Collection', async ({page}) => {
 
 	// Step 24. In the right sidebar, expand *Categorization* and click *Select* next to Articles.
 	await press(page, 'Categorization');
-	await press(page, 'Select');
+	await press(page, 'Select', 'Articles');
 
 	// Step 25. Select the *Innovation* category and click *Done*, then click *Publish*.
 	await press(page, 'Innovation');
@@ -129,7 +129,7 @@ test('Creating a Manual Collection', async ({page}) => {
 	// Step 29. Set the Subtype to *Article*, click *Save*, then click *Publish* for the template.
 	await press(page, 'Article');
 	await press(page, 'Save');
-	await press(page, 'Publish');
+	await press(page, 'Publish', 'template');
 
 	// Step 30. Click *Actions* (![](../../images/icon-actions.png)) again for Article and click *Mark as Default*.
 	await press(page, 'Actions');

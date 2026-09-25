@@ -31,6 +31,17 @@ const MENUS: Record<string, {root: string; trigger: string}> = {
 };
 
 /** Long enough for a panel or dialog to arrive after the network goes quiet. */
+//
+// How long a control is given to appear before it is treated as absent.
+//
+const FIND_TIMEOUT = 8000;
+
+//
+// How long a click is given to change the screen before the absence of a
+// change is treated as evidence.
+//
+const CHANGE_TIMEOUT = 10000;
+
 const SETTLE = 900;
 
 /**
@@ -108,6 +119,36 @@ export async function openMenu(
 	}
 
 	//
+	// When the lesson names no section, every tab is opened in turn until the
+	// application appears. A menu's applications are split across tabs -
+	// User Groups lives under Control Panel - so a phrasing like "the User
+	// Groups application in the Global Menu", which never states a tab, finds
+	// nothing while standing on the tab that happened to be showing.
+	//
+	if (!section) {
+		const tabs = page.locator(
+			`${menu.root} [role="tab"], ${menu.root} [role="button"][aria-expanded]`
+		);
+
+		const count = await tabs.count().catch(() => 0);
+
+		for (let index = 0; index < count; index++) {
+			const present = await page
+				.locator(`a:text-is("${application}")`)
+				.count()
+				.catch(() => 0);
+
+			if (present) {
+				break;
+			}
+
+			await tabs.nth(index).click({timeout: 2000}).catch(() => undefined);
+
+			await page.waitForTimeout(SETTLE);
+		}
+	}
+
+	//
 	// Searched on the page, not inside the panel. Clicking a Global Menu
 	// section closes the dropdown and renders that section's applications
 	// elsewhere, so a search confined to the panel finds nothing every time.
@@ -155,16 +196,66 @@ export async function openMenu(
  * including an inert span, and raises nothing - so "the click did not throw"
  * is not the same as "the step was performed".
  */
-export async function press(page: Page, label: string) {
+export async function press(page: Page, label: string, within?: string) {
 	const before = await screenPrint(page);
 
 	const escaped = label.replace(/"/g, '\\"');
 
 	//
+	// The row, card, or item the lesson named.
+	//
+	// "Click *Actions* for Christian Carter" names one row of a table where
+	// every row has an Actions control. Dropping the qualifier and taking the
+	// first match acted on whoever happened to be at the top - and because
+	// something did open, every check downstream agreed it had worked. This
+	// is the one defect class that produces a confidently wrong result rather
+	// than a failure.
+	//
+	const inside = within ? within.replace(/"/g, '\\"') : null;
+
+	//
 	// page.frames() already includes the main frame, so listing the page
 	// alongside it tried everything twice and doubled the time a miss costs.
 	//
-	for (const scope of page.frames()) {
+	//
+	// Searched until it appears, not once.
+	//
+	// A control is queried the moment the previous step's screen changed,
+	// which is before Liferay has finished rendering the one that replaced
+	// it. locator.count() does not wait, so a control that arrives 300ms
+	// later was reported as absent and the test blamed the lesson.
+	//
+	const deadline = Date.now() + FIND_TIMEOUT;
+
+	let ambiguous = 0;
+
+	let seen = false;
+
+	while (Date.now() < deadline) {
+	for (const frame of page.frames()) {
+		//
+		// Narrowed to the named row where one exists, and left alone where it
+		// does not. A qualifier is not always a table row: "Reindex for All
+		// Search Indexes" names a control in a panel, and refusing to act
+		// because no <tr> carried that text broke a step that had been
+		// working. The ambiguity check below is what guards the wrong click,
+		// so falling back here costs nothing.
+		//
+		let scope: Locator | Frame = frame;
+
+		if (inside) {
+			const container = frame
+				.locator(
+					`tr:has-text("${inside}"), [role="row"]:has-text("${inside}"), ` +
+						`li:has-text("${inside}"), .list-group-item:has-text("${inside}"), ` +
+						`.card:has-text("${inside}")`
+				)
+				.last();
+
+			if (await container.count().catch(() => 0)) {
+				scope = container;
+			}
+		}
 
 		//
 		// Exact text first, substring only as a fallback.
@@ -178,31 +269,116 @@ export async function press(page: Page, label: string) {
 		//
 		// An exact match is what a lesson means when it prints a label.
 		//
-		const exact = scope
-			.locator(
+		//
+		// Ordered by how precisely each identifies a control, and a pass that
+		// matches more than one is refused rather than resolved with first().
+		//
+		// The accessible name comes first because the visible text does not
+		// identify a control on its own: the Add User screen carries three
+		// buttons reading "Select" - one for the image, one named "Select
+		// Topic", one named "Select Tags". Taking the first match clicked the
+		// wrong one, opened something, and the screen-changed check called
+		// that success. A wrong click that passes is worse than a miss.
+		//
+		const candidates = [
+			scope
+				.getByRole('button', {exact: true, name: label})
+				.or(scope.getByRole('link', {exact: true, name: label})),
+			scope.locator(
 				`a:text-is("${escaped}"), button:text-is("${escaped}"), ` +
 					`[role="menuitem"]:text-is("${escaped}"), ` +
 					`[role="tab"]:text-is("${escaped}"), ` +
 					`[role="button"]:text-is("${escaped}")`
-			)
-			.or(scope.getByRole('button', {exact: true, name: label}))
-			.or(scope.getByRole('link', {exact: true, name: label}))
-			.first();
+			),
+			scope
+				.getByRole('button', {exact: false, name: label})
+				.or(scope.getByRole('link', {exact: false, name: label}))
+				.or(
+					scope.locator(
+						`a:has-text("${escaped}"), button:has-text("${escaped}"), ` +
+							`[role="menuitem"]:has-text("${escaped}"), ` +
+							`[role="tab"]:has-text("${escaped}"), ` +
+							`[role="button"]:has-text("${escaped}")`
+					)
+				),
+		];
 
-		const loose = scope
-			.locator(
-				`a:has-text("${escaped}"), button:has-text("${escaped}"), ` +
-					`[role="menuitem"]:has-text("${escaped}"), ` +
-					`[role="tab"]:has-text("${escaped}"), ` +
-					`[role="button"]:has-text("${escaped}")`
-			)
-			.or(scope.getByRole('button', {exact: false, name: label}))
-			.or(scope.getByRole('link', {exact: false, name: label}))
-			.first();
+		//
+		// A control the reader operates rather than clicks.
+		//
+		// press() knew links, buttons, tabs and menu items only, so a
+		// checkbox, radio, switch, or option of a select could not be reached
+		// at all - and a lesson step naming one was reported as naming a
+		// control that is not on the screen. Selecting a person from a picker
+		// and choosing a redirect type are both this.
+		//
+		const toggle = scope
+			.getByRole('checkbox', {exact: true, name: label})
+			.or(scope.getByRole('radio', {exact: true, name: label}))
+			.or(scope.getByRole('switch', {exact: true, name: label}));
 
-		const control = (await exact.count().catch(() => 0)) ? exact : loose;
+		if ((await toggle.count().catch(() => 0)) === 1) {
+			seen = true;
 
-		if (!(await control.count().catch(() => 0))) {
+			try {
+				await toggle.first().check({timeout: 4000});
+
+				return;
+			}
+			catch (error) {
+				// Fall through to the controls below.
+			}
+		}
+
+		const chooser = scope
+			.locator('select')
+			.filter({has: scope.locator(`option:text-is("${escaped}")`)});
+
+		if ((await chooser.count().catch(() => 0)) === 1) {
+			seen = true;
+
+			try {
+				await chooser.first().selectOption({label});
+
+				return;
+			}
+			catch (error) {
+				// Fall through to the controls below.
+			}
+		}
+
+		//
+		// Counted among what the reader can actually see.
+		//
+		// Liferay keeps a dropdown in the DOM for every row of a table, so
+		// "Impersonate User" matched eleven controls when exactly one menu
+		// was open. Counting hidden copies made an unambiguous screen look
+		// ambiguous and stopped a step that a reader performs without
+		// hesitating.
+		//
+		let control: Locator | null = null;
+
+		for (const candidate of candidates) {
+			const shown: Locator[] = [];
+
+			for (const element of await candidate.all().catch(() => [])) {
+				if (await element.isVisible().catch(() => false)) {
+					shown.push(element);
+				}
+			}
+
+			if (shown.length === 1) {
+				control = shown[0];
+
+				break;
+			}
+
+			if (shown.length > 1) {
+				ambiguous = shown.length;
+			}
+		}
+
+		if (!control) {
 			continue;
 		}
 
@@ -212,13 +388,29 @@ export async function press(page: Page, label: string) {
 		// check below then blamed the control for not opening anything, when
 		// the truth was that nothing had been clicked at all.
 		//
+		//
+		// A matching control existed. Recorded before the click so that a
+		// control which is present but unclickable is reported as exactly
+		// that, rather than as absent - the two need opposite fixes, and
+		// reporting both as "no control reading X" sent every one of them to
+		// be investigated as a wrong label in the lesson.
+		//
+		seen = true;
+
+		try {
+			await control.scrollIntoViewIfNeeded({timeout: 2000});
+		}
+		catch (error) {
+			// Not fatal: a control already in view needs no scrolling.
+		}
+
 		try {
 			//
 			// Bounded. A miss must be cheap: the default wait is thirty
 			// seconds, and a handful of those exhausts the whole test's
 			// budget before it reaches the step that matters.
 			//
-			await control.click({timeout: 8000});
+			await control.click({timeout: 4000});
 		}
 		catch (error) {
 			continue;
@@ -233,10 +425,32 @@ export async function press(page: Page, label: string) {
 			.waitForLoadState('networkidle', {timeout: 4000})
 			.catch(() => undefined);
 
-		await page.waitForTimeout(SETTLE);
+		//
+		// Polled until the screen differs, rather than read once after a
+		// fixed wait.
+		//
+		// Liferay navigates and renders in its own time, and a single reading
+		// called a working click a failure: pressing New on Users and
+		// Organizations opens Add User, and the check read the screen before
+		// Add User had arrived. A change is proof as soon as it appears; the
+		// absence of one is only proof once the waiting is done.
+		//
+		const deadline = Date.now() + CHANGE_TIMEOUT;
+
+		let after = before;
+
+		while (Date.now() < deadline) {
+			after = await screenPrint(page);
+
+			if (after !== before) {
+				break;
+			}
+
+			await page.waitForTimeout(250);
+		}
 
 		expect(
-			await screenPrint(page),
+			after,
 			`"${label}" was pressed and nothing on the screen changed, so ` +
 				`whatever it was meant to open did not open`
 		).not.toBe(before);
@@ -244,30 +458,90 @@ export async function press(page: Page, label: string) {
 		return;
 	}
 
+		await page.waitForTimeout(250);
+	}
+
+	if (ambiguous && !seen) {
+		throw new Error(
+			`"${label}" matches ${ambiguous} controls on this screen, so which ` +
+				`one the step means cannot be told from the label alone - the ` +
+				`lesson needs to say which, as in "Select for the image"`
+		);
+	}
+
 	throw new Error(
-		`no control reading or announcing "${label}" is on this screen`
+		seen
+			? `"${label}" is on this screen but could not be clicked - it may ` +
+				`be covered, disabled, or outside the visible area`
+			: `no control reading or announcing "${label}" is on this screen`
 	);
 }
 
 async function findField(page: Page, field: string): Promise<Locator | null> {
 	//
-	// Exact label first, across every frame, before falling back to a
-	// substring anywhere. getByLabel({exact: false}) is a case-insensitive
-	// substring, so fill(page, 'name', ...) matched Username, Display Name,
-	// Template Name and Friendly URL Name - and then read that same wrong
-	// field back, so the verification agreed with itself.
+	// Constrained to something that can actually hold text. Without this the
+	// substring pass below returned labels and wrapper elements, and the fill
+	// failed with "Element is not an <input>" while naming the right field.
 	//
-	for (const exact of [true, false]) {
+	const FILLABLE = 'input, textarea, select, [contenteditable="true"]';
+
+	const quoted = field.replace(/"/g, '');
+
+	//
+	// Three passes, in order of how much they prove.
+	//
+	// 1. The accessible name, exactly. getByLabel({exact: false}) is a
+	//    case-insensitive substring, so fill(page, 'name', ...) matched
+	//    Username, Display Name, Template Name and Friendly URL Name - and
+	//    then read that same wrong field back, so the verification agreed
+	//    with itself.
+	//
+	// 2. The visible label. Liferay names some controls after their helper
+	//    text rather than their label: the Description box on a user group
+	//    announces itself as "Characters Maximum: 4000", so a reader looking
+	//    at a field clearly labelled Description cannot be matched by name at
+	//    all. The label is what the lesson saw, so the label is what this
+	//    follows - to the first field after it in the document.
+	//
+	// 3. The accessible name as a substring, which is the old behaviour and
+	//    the least trustworthy.
+	//
+	//
+	// Retried for the same reason press() is: a form is queried as soon as
+	// the screen carrying it changed, which is before its fields exist.
+	//
+	const deadline = Date.now() + FIND_TIMEOUT;
+
+	while (Date.now() < deadline) {
+	for (const pass of ['exact', 'label', 'loose']) {
 		for (const frame of page.frames()) {
-			const candidate = frame
-				.getByLabel(field, {exact})
-				.or(frame.getByPlaceholder(field, {exact}))
-				.first();
+			let candidate: Locator;
+
+			if (pass === 'label') {
+				candidate = frame
+					.locator(
+						`xpath=//label[normalize-space(translate(normalize-space(.), "*", "")) = "${quoted}"]` +
+							`/following::*[self::input or self::textarea or self::select][1]`
+					)
+					.first();
+			}
+			else {
+				const exact = pass === 'exact';
+
+				candidate = frame
+					.getByLabel(field, {exact})
+					.or(frame.getByPlaceholder(field, {exact}))
+					.and(frame.locator(FILLABLE))
+					.first();
+			}
 
 			if (await candidate.count().catch(() => 0)) {
 				return candidate;
 			}
 		}
+	}
+
+		await page.waitForTimeout(250);
 	}
 
 	return null;

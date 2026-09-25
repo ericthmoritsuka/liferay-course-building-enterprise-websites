@@ -33,7 +33,7 @@ test('Creating a Vocabulary', async ({page}) => {
 	await press(page, 'Categories');
 
 	// Step 4. Click *Add* (![](../../images/icon-plus.png)) next to Vocabularies to create a new vocabulary.
-	await press(page, 'Add');
+	await press(page, 'Add', 'Vocabularies to create a new vocabulary');
 
 	// Step 5. Enter these details:
 	await fill(page, 'Name', 'FAQ');

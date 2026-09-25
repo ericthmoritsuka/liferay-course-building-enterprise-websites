@@ -56,7 +56,7 @@ test('Creating Navigation Menus', async ({page}) => {
 	await press(page, 'Select');
 
 	// Step 10. Click *Actions* (![](../../images/icon-actions.png)) for one of the menu items and select *View Info*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'one of the menu items');
 	await press(page, 'View Info');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/05.png'});

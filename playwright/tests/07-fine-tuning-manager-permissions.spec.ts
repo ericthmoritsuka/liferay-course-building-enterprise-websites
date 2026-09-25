@@ -23,7 +23,7 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	await signIn(page, 'admin');
 
 	// Step 1. Go to the *User Groups* application in the Global Menu.
-	await press(page, 'User Groups');
+	await openMenu(page, 'Global Menu', null, 'User Groups');
 
 	// Step 2. Create a `Marketing Managers` user group.
 	// Not performed: no control or value named in this step.
@@ -32,7 +32,7 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 4. Go to the *Roles* application in the Global Menu.
-	await press(page, 'Roles');
+	await openMenu(page, 'Global Menu', null, 'Roles');
 
 	// Step 5. Create a `Marketing Manager` role.
 	// Not performed: no control or value named in this step.
@@ -67,10 +67,10 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	await press(page, 'Marketing Managers');
 
 	// Step 14. Go to the *User Groups* application in the Global Menu.
-	await press(page, 'User Groups');
+	await openMenu(page, 'Global Menu', null, 'User Groups');
 
 	// Step 15. Click *Actions* (![](../../images/icon-actions.png)) for the Marketing user group and select *Permissions*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Marketing user group');
 	await press(page, 'Permissions');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/13.png'});
@@ -82,7 +82,7 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/14.png'});
 
 	// Step 17. Go to the *Users and Organizations* application in the Global Menu.
-	await press(page, 'Users and Organizations');
+	await openMenu(page, 'Global Menu', null, 'Users and Organizations');
 
 	// Step 18. Impersonate Clara Murphy to verify the Marketing Manager role permissions.
 	// Not performed: no control or value named in this step.

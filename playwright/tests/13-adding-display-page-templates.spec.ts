@@ -53,7 +53,7 @@ test('Adding Display Page Templates', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 10. Click *Actions* (![](../../images/icon-actions.png)) for the Leadership Profile template and select *Mark as D
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Leadership Profile template');
 	await press(page, 'Mark as Default');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/04-adding-pages-to-claritys-site/images/09.png'});

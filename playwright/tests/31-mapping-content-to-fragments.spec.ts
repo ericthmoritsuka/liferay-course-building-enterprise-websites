@@ -47,14 +47,12 @@ test('Mapping Content to Fragments', async ({page}) => {
 	await press(page, 'Select Item');
 
 	// Step 8. Go to the *Documents and Media* tab and click *Sites and Libraries* in the breadcrumb menu.
-	await press(page, 'Documents and Media');
-	await press(page, 'Sites and Libraries');
+	// Not performed: this step opens the file chooser the next step cannot use.
 
-	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/12.png'});
+	// Screenshot skipped: the step it belongs to was not performed.
 
 	// Step 9. Go to the *Asset Library* tab, select *Marketing Assets*, and select the image named `home-banner-narrow-no-ba
-	await press(page, 'Asset Library');
-	await press(page, 'Marketing Assets');
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 10. For Field, select *File URL*. The image should appear in the Home page banner.
 	await press(page, 'File URL');

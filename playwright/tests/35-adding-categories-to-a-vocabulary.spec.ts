@@ -45,7 +45,7 @@ test('Adding Categories to a Vocabulary', async ({page}) => {
 
 	// Step 7. In the right sidebar, expand *Categorization* and click *Select* next to FAQ.
 	await press(page, 'Categorization');
-	await press(page, 'Select');
+	await press(page, 'Select', 'FAQ');
 
 	// Step 8. Select the Returns and Exchanges checkbox and click *Done*, then click *Publish*.
 	await press(page, 'Done');

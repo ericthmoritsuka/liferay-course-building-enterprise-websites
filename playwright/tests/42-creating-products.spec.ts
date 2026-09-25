@@ -42,7 +42,7 @@ test('Creating Products', async ({page}) => {
 	// Screenshot skipped: the step it belongs to was not performed.
 
 	// Step 6. In the Categorization section, click *Select* for Clarity Products.
-	await press(page, 'Select');
+	await press(page, 'Select', 'Clarity Products');
 
 	// Step 7. Select *Sunglasses* and click *Done* to apply the category to this item.
 	await press(page, 'Sunglasses');

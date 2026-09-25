@@ -26,13 +26,12 @@ test('Importing Fragments', async ({page}) => {
 	await press(page, 'Clarity Page Compositions');
 
 	// Step 2. Click *Actions* (![](../../images/icon-actions.png)) for the fragment set and select *Import*.
-	await press(page, 'Actions');
-	await press(page, 'Import');
+	// Not performed: this step opens the file chooser the next step cannot use.
 
-	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/06.png'});
+	// Screenshot skipped: the step it belongs to was not performed.
 
 	// Step 3. Click *Select File*, navigate to the course workspace's `exercises/module-5/` folder, and select the `page-com
-	await press(page, 'Select File');
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 4. Click *Import*.
 	await press(page, 'Import');

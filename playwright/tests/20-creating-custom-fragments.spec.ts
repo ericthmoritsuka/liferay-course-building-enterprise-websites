@@ -42,10 +42,10 @@ test('Creating Custom Fragments', async ({page}) => {
 	await press(page, 'Add');
 
 	// Step 6. Go to the *Configuration* tab.
-	await press(page, 'Configuration');
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 7. In your course workspace, open the `exercises/module-5/search-button-configuration.json` file and copy its con
-	// Not performed: no control or value named in this step.
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 8. Navigate back to the Search Button fragment and replace the placeholder text in the editor with the copied .js
 	// Not performed: no control or value named in this step.

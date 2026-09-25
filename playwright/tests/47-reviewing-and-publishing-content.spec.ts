@@ -48,14 +48,14 @@ test('Reviewing and Publishing Content', async ({page}) => {
 	await press(page, 'Assigned to My Roles');
 
 	// Step 7. Click *Actions* (![](../../images/icon-actions.png)) for the workflow task and select *Assign to Me*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'workflow task');
 	await press(page, 'Assign to Me');
 
 	// Step 8. Enter a comment and click *Done*.
 	await press(page, 'Done');
 
 	// Step 9. Click *Actions* (![](../../images/icon-actions.png)) for the task and select *Approve*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'task');
 	await press(page, 'Approve');
 
 	// Step 10. Enter a comment and click *Done*.

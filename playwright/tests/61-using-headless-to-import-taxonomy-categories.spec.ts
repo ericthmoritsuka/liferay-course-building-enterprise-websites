@@ -46,10 +46,10 @@ test('Using Headless to Import Taxonomy Categories', async ({page}) => {
 	await press(page, 'postTaxonomyVocabularyTaxonomyCategoryBatch');
 
 	// Step 8. For taxonomyVocabularyId, enter the Location vocabulary ID.
-	// Not performed: the step does not name a field and a value plainly enough.
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 9. Open and copy the `exercises/module-8/` `import-taxonomy-categories-batch.json` file's contents from your cour
-	// Not performed: no control or value named in this step.
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 10. Paste its contents into the Request Body field in place of the placeholder text.
 	// Not performed: no control or value named in this step.

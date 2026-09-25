@@ -36,13 +36,12 @@ test('Creating Users', async ({page}) => {
 	await press(page, 'New');
 
 	// Step 4. To set the user's profile image, click the *Change Image* (![](../../images/icon-change.png)) button, and clic
-	await press(page, 'Change Image');
-	await press(page, 'Select');
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 5. Go to the `liferay-building-enterprise-websites/exercises/module-4/` course workspace folder, select `christia
-	await press(page, 'Done');
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
-	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/05-adding-claritys-users-and-groups/images/04.png'});
+	// Screenshot skipped: the step it belongs to was not performed.
 
 	// Step 6. Enter these details for Christian Carter:
 	await fill(page, 'Screen Name', 'christiancarter');

@@ -29,10 +29,10 @@ test('Using Headless APIs to Batch Import Web Content', async ({page}) => {
 	await press(page, 'postSiteStructuredContentBatch');
 
 	// Step 3. For siteId, enter the site ID for Clarity Public Enterprise Website.
-	// Not performed: the step does not name a field and a value plainly enough.
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 4. Open and copy the contents of the `exercises/module-8/` `import-web-content-articles-batch.json` file from you
-	// Not performed: no control or value named in this step.
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 5. Paste its contents into the Request Body field in place of the placeholder text.
 	// Not performed: no control or value named in this step.

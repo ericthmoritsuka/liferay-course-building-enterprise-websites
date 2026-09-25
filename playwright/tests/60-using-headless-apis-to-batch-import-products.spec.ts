@@ -44,10 +44,10 @@ test('Using Headless APIs to Batch Import Products', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/04.png'});
 
 	// Step 7. Scroll down to the Product section and expand the *postProductBatch* endpoint.
-	await press(page, 'postProductBatch');
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 8. Open and copy the contents of the `exercises/module-8/import-products-batch.json` file in your course workspac
-	// Not performed: no control or value named in this step.
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 9. Paste its contents into the *Request Body* field in place of the placeholder text.
 	// Not performed: no control or value named in this step.

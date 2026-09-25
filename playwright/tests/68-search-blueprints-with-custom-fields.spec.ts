@@ -53,7 +53,7 @@ test('Search Blueprints with Custom Fields', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 10. In the right configuration menu, click *Add* for Filter by Exact Terms Match.
-	await press(page, 'Add');
+	await press(page, 'Add', 'Filter by Exact Terms Match');
 
 	// Step 11. For its query elements Field, enter `expando__keyword__custom_fields__RegistrationId_long`.
 	await fill(page, 'query elements', 'expando__keyword__custom_fields__RegistrationId_long');
@@ -80,10 +80,10 @@ test('Search Blueprints with Custom Fields', async ({page}) => {
 	await fill(page, 'nestedFields', 'embedded');
 
 	// Step 18. For search, enter `555777`.
-	await fill(page, 'search', '555777');
+	// Not performed: this step opens the file chooser the next step cannot use.
 
 	// Step 19. Open and copy the contents of the `/exercises/module-9/api-post-search.json` file in your course workspace.
-	// Not performed: no control or value named in this step.
+	// Not performed: this step picks a file from disk, which a browser test cannot do.
 
 	// Step 20. Paste its contents in place of the Request Body field's placeholder text.
 	// Not performed: no control or value named in this step.

@@ -51,7 +51,7 @@ test('Creating the Contact Us Responses Data Set', async ({page}) => {
 	await press(page, 'List');
 
 	// Step 9. Click *Add* (![](../../images/icon-plus.png)) for the Title row and select *Assign from Data Source*.
-	await press(page, 'Add');
+	await press(page, 'Add', 'Title row');
 	await press(page, 'Assign from Data Source');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/10.png'});
@@ -65,7 +65,7 @@ test('Creating the Contact Us Responses Data Set', async ({page}) => {
 	await press(page, 'Save');
 
 	// Step 12. Click *Add* (![](../../images/icon-plus.png)) for the Description row and select *Add Field Manually*.
-	await press(page, 'Add');
+	await press(page, 'Add', 'Description row');
 	await press(page, 'Add Field Manually');
 
 	// Step 13. For Field Name, type `comment`.

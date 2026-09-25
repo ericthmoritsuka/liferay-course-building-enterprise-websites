@@ -64,7 +64,7 @@ test('Creating Clarity`s Calendar Page', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 13. In the list of site pages, click *Actions* (![](../../images/icon-options.png)) for the Calendar page and sele
-	await press(page, 'Actions');
+	await press(page, 'Actions', 'Calendar page');
 	await press(page, 'View');
 
 	// Step 14. Select the *Month* view and click any date before your current date, enter `Past Job Fair` as the name, and cl
