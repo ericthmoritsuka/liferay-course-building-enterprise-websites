@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Importing Fragments', async ({page}) => {
 	await signIn(page, 'admin');
@@ -22,6 +28,8 @@ test('Importing Fragments', async ({page}) => {
 	// Step 2. Click *Actions* (![](../../images/icon-actions.png)) for the fragment set and select *Import*.
 	await press(page, 'Actions');
 	await press(page, 'Import');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/06.png'});
 
 	// Step 3. Click *Select File*, navigate to the course workspace's `exercises/module-5/` folder, and select the `page-com
 	await press(page, 'Select File');
@@ -34,5 +42,7 @@ test('Importing Fragments', async ({page}) => {
 
 	// Step 6. Repeat the above steps to import these compositions to the correct fragment set folders:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/07.png'});
 
 });

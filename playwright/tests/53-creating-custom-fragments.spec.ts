@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Custom Fragments', async ({page}) => {
 	await signIn(page, 'walter');
@@ -30,6 +36,8 @@ test('Creating Custom Fragments', async ({page}) => {
 	await press(page, 'Basic Fragment');
 	await press(page, 'Next');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/03.png'});
+
 	// Step 5. For name, enter `Search Button` and click *Add*.
 	await press(page, 'Add');
 
@@ -42,11 +50,15 @@ test('Creating Custom Fragments', async ({page}) => {
 	// Step 8. Navigate back to the Search Button fragment and replace the placeholder text in the editor with the copied .js
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/04.png'});
+
 	// Step 9. In your course workspace, open the `exercises/module-5/search-button.ftl` file and copy its contents.
 	// Not performed: no control or value named in this step.
 
 	// Step 10. Navigate back to the Search Button fragment, go to the Code tab, and replace the placeholder HTML code with th
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/05.png'});
 
 	// Step 11. Click *Publish*.
 	await press(page, 'Publish');

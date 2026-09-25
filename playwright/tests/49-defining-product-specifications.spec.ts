@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Defining Product Specifications', async ({page}) => {
 	await signIn(page, 'admin');
@@ -48,5 +54,7 @@ test('Defining Product Specifications', async ({page}) => {
 
 	// Step 11. Return to the *Specification Labels* page.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/06.png'});
 
 });

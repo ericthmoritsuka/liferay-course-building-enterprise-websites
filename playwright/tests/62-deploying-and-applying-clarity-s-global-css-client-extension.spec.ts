@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Deploying and Applying Clarity\'s Global CSS Client Extension', async ({page}) => {
 	await signIn(page, 'admin');
@@ -40,7 +46,11 @@ test('Deploying and Applying Clarity\'s Global CSS Client Extension', async ({pa
 	await press(page, 'Clarity Global CSS');
 	await press(page, 'Add');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/08.png'});
+
 	// Step 8. Click *Save*.
 	await press(page, 'Save');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/09.png'});
 
 });

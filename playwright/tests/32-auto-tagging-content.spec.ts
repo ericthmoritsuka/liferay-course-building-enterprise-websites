@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Auto-Tagging Content', async ({page}) => {
 	await signIn(page, 'admin');
@@ -34,6 +40,8 @@ test('Auto-Tagging Content', async ({page}) => {
 
 	// Step 6. Set the max number of tags to `2`.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/05-organizing-claritys-content/images/04.png'});
 
 	// Step 7. Click *Update*.
 	await press(page, 'Update');

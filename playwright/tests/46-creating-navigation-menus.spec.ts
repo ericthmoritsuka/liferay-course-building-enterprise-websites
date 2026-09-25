@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Navigation Menus', async ({page}) => {
 	await signIn(page, 'walter');
@@ -28,6 +34,8 @@ test('Creating Navigation Menus', async ({page}) => {
 	// Step 4. For Name, enter `Header Page Menu`.
 	await fill(page, 'Name', 'Header Page Menu');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/02.png'});
+
 	// Step 5. Click *Save*.
 	await press(page, 'Save');
 
@@ -37,8 +45,12 @@ test('Creating Navigation Menus', async ({page}) => {
 	// Step 7. Select the *Page* item type.
 	await press(page, 'Page');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/03.png'});
+
 	// Step 8. Check these six pages:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/04.png'});
 
 	// Step 9. Click *Select*. This saves your menu changes.
 	await press(page, 'Select');
@@ -47,8 +59,12 @@ test('Creating Navigation Menus', async ({page}) => {
 	await press(page, 'Actions');
 	await press(page, 'View Info');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/05.png'});
+
 	// Step 11. Drag and drop the pages into this order:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/06.png'});
 
 	// Step 12. Return to the *Navigation Menus* overview page.
 	// Not performed: no control or value named in this step.
@@ -67,5 +83,7 @@ test('Creating Navigation Menus', async ({page}) => {
 
 	// Step 17. Click *Select*.
 	await press(page, 'Select');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/07.png'});
 
 });

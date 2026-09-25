@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Asset Libraries', async ({page}) => {
 	await signIn(page, 'walter');
@@ -35,6 +41,8 @@ test('Creating Asset Libraries', async ({page}) => {
 	await press(page, 'Add');
 	await press(page, 'Clarity Public Enterprise Website');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/03.png'});
+
 	// Step 7. Return to the *Asset Libraries* overview page.
 	// Not performed: no control or value named in this step.
 
@@ -47,6 +55,8 @@ test('Creating Asset Libraries', async ({page}) => {
 	// Step 10. Click *New* and select *Multiple Files Upload*.
 	await press(page, 'New');
 	await press(page, 'Multiple Files Upload');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/04.png'});
 
 	// Step 11. Select all 12 logo images from your course workspace's `/exercises/module-6/` resources folder.
 	// Not performed: no control or value named in this step.

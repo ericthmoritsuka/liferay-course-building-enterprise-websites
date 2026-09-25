@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Picklist', async ({page}) => {
 	await signIn(page, 'ian');
@@ -36,6 +42,8 @@ test('Creating a Picklist', async ({page}) => {
 
 	// Step 7. Click *Sales* and observe its language selector.
 	await press(page, 'Sales');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/02.png'});
 
 	// Step 8. Change the language selector to Spanish (**es_ES**), enter `Ventas` for the name, and click *Save*.
 	await press(page, 'Save');

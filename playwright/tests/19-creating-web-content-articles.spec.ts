@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Web Content Articles', async ({page}) => {
 	await signIn(page, 'admin');
@@ -40,8 +46,12 @@ test('Creating Web Content Articles', async ({page}) => {
 	await press(page, 'New');
 	await press(page, 'Announcements');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/08.png'});
+
 	// Step 8. Enter these values:
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/09.png'});
 
 	// Step 9. Click *Publish*.
 	await press(page, 'Publish');
@@ -55,5 +65,7 @@ test('Creating Web Content Articles', async ({page}) => {
 
 	// Step 12. Create these three FAQ articles:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/10.png'});
 
 });

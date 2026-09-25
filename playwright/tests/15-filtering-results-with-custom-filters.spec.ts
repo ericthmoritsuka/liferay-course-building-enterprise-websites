@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Filtering Results with Custom Filters', async ({page}) => {
 	await signIn(page, 'admin');
@@ -32,6 +38,8 @@ test('Filtering Results with Custom Filters', async ({page}) => {
 	// Step 5. From the *Components* panel, drag and drop a *Custom Filter* widget into the Search Results and Options contai
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/13.png'});
+
 	// Step 6. Select the *Custom Filter* widget, click its *Actions* button (![](../../images/icon-actions.png)), and select
 	await press(page, 'Custom Filter');
 	await press(page, 'Actions');
@@ -45,5 +53,7 @@ test('Filtering Results with Custom Filters', async ({page}) => {
 
 	// Step 9. Click *Publish*.
 	await press(page, 'Publish');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/14.png'});
 
 });

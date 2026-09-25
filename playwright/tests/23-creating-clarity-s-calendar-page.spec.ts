@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Clarity`s Calendar Page', async ({page}) => {
 	await signIn(page, 'admin');
@@ -34,6 +40,8 @@ test('Creating Clarity`s Calendar Page', async ({page}) => {
 
 	// Step 6. Drag and drop the *Calendar* widget into the page.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/06.png'});
 
 	// Step 7. From the *Fragments* panel, drag and drop a *Container* fragment above the Calendar widget.
 	// Not performed: no control or value named in this step.
@@ -66,5 +74,7 @@ test('Creating Clarity`s Calendar Page', async ({page}) => {
 
 	// Step 16. Add one more event after Upcoming Job Fair named `Campus Recruiting Event`.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/06.png'});
 
 });

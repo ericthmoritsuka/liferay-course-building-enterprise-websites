@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating and Assigning User Roles', async ({page}) => {
 	await signIn(page, 'admin');
@@ -28,6 +34,8 @@ test('Creating and Assigning User Roles', async ({page}) => {
 	// Step 4. Enter these details for the role:
 	// Not performed: the step does not name a field and a value plainly enough.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/01.png'});
+
 	// Step 5. Click *Save*.
 	await press(page, 'Save');
 
@@ -35,11 +43,15 @@ test('Creating and Assigning User Roles', async ({page}) => {
 	await press(page, 'Assignees');
 	await press(page, 'User Groups');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/02.png'});
+
 	// Step 7. Click *New*.
 	await press(page, 'New');
 
 	// Step 8. Select *Marketing*.
 	await press(page, 'Marketing');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/03.png'});
 
 	// Step 9. Click *Add*.
 	await press(page, 'Add');

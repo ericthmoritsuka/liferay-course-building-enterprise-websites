@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Designing Clarity\'s Master Pages', async ({page}) => {
 	await signIn(page, 'walter');
@@ -31,14 +37,20 @@ test('Designing Clarity\'s Master Pages', async ({page}) => {
 	// Step 5. Drag and drop a *Container* fragment to the top of the template, above the drop zone. This container is for th
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/07.png'});
+
 	// Step 6. Go to the *Browser* tab in the side panel, double-click the name of the container and rename it `Page Header`.
 	await press(page, 'Browser');
 
 	// Step 7. Add two additional containers within the Page Header container and name them `Header Announcement Bar` and `He
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/08.png'});
+
 	// Step 8. Select the *Header Announcement Bar* and configure these settings in the right side panel:
 	await press(page, 'Header Announcement Bar');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/09.png'});
 
 	// Step 9. Select the *Header Navigation Bar* container and configure these settings:
 	await press(page, 'Header Navigation Bar');
@@ -49,11 +61,17 @@ test('Designing Clarity\'s Master Pages', async ({page}) => {
 	// Step 11. Widen the center module by dragging the dividers outward one space on each side.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/10.png'});
+
 	// Step 12. Select the grid and configure these settings:
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/11.png'});
+
 	// Step 13. Add a container to each grid area and name them Header Branding, Header Navigation, and Header User Actions.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/12.png'});
 
 	// Step 14. Select the *Header Branding* container and configure these settings:
 	await press(page, 'Header Branding');
@@ -66,5 +84,7 @@ test('Designing Clarity\'s Master Pages', async ({page}) => {
 
 	// Step 17. Add these fragments to the containers:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/13.png'});
 
 });

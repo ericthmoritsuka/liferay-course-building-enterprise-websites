@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Dynamic Collections with Search Blueprints', async ({page}) => {
 	await signIn(page, 'admin');
@@ -35,6 +41,8 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 	// Step 6. Paste its contents in the JSON field, in place of the placeholder text.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/07.png'});
+
 	// Step 7. Click *Save*.
 	await press(page, 'Save');
 
@@ -46,6 +54,8 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 
 	// Step 10. Enter `Future Events` for the title and toggle Enable as a Collection Provider to enabled.
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/08.png'});
 
 	// Step 11. Click *Create*.
 	await press(page, 'Create');
@@ -61,6 +71,8 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 	await press(page, 'Calendar Event');
 	await press(page, 'Done');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/09.png'});
+
 	// Step 15. Click *Save*.
 	await press(page, 'Save');
 
@@ -69,6 +81,8 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 
 	// Step 17. In the container, click *Select Collection* for the Collection Display.
 	await press(page, 'Select Collection');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/10.png'});
 
 	// Step 18. Go to the *Collection Providers* tab and select *Future Events*.
 	await press(page, 'Collection Providers');
@@ -80,6 +94,8 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 	// Step 20. From the *Components* panel's *Fragments* tab, drag and drop a *Heading* fragment into the *Collection Display
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/11.png'});
+
 	// Step 21. Select the *Heading* fragment and select *H2* for the Heading Level**field.
 	await press(page, 'Heading');
 	await press(page, 'H2');
@@ -88,6 +104,8 @@ test('Dynamic Collections with Search Blueprints', async ({page}) => {
 	await press(page, 'Heading');
 	await press(page, 'element-text');
 	await press(page, 'Basic Information > Title');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/12.png'});
 
 	// Step 23. Click *Publish*.
 	await press(page, 'Publish');

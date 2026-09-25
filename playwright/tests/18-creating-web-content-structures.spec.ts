@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Web Content Structures', async ({page}) => {
 	await signIn(page, 'christian');
@@ -36,11 +42,15 @@ test('Creating Web Content Structures', async ({page}) => {
 	// Step 6. From the Builder sidebar, drag and drop a *Text* field into the structure.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/05.png'});
+
 	// Step 7. Select the *Text* field and configure these options:
 	await press(page, 'Text');
 
 	// Step 8. Click the *back arrow* (![](../../images/icon-angle-left.png)) to return to the Builder sidebar menu.
 	await press(page, 'back arrow');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/06.png'});
 
 	// Step 9. Drag and drop another *Text* field just below the first one.
 	// Not performed: no control or value named in this step.
@@ -53,6 +63,8 @@ test('Creating Web Content Structures', async ({page}) => {
 
 	// Step 12. Drag and drop a *Link to Page* field on top of the *Link Text* field.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/07.png'});
 
 	// Step 13. Select the *Link to Page* field and configure this option:
 	await press(page, 'Link to Page');

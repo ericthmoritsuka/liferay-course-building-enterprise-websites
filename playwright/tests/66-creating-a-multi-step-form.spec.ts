@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Multi-Step Form', async ({page}) => {
 	await signIn(page, 'admin');
@@ -35,6 +41,8 @@ test('Creating a Multi-Step Form', async ({page}) => {
 	await press(page, 'Stepper');
 	await press(page, 'Localization Select');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/12.png'});
+
 	// Step 7. Click *Continue*.
 	await press(page, 'Continue');
 
@@ -44,11 +52,15 @@ test('Creating a Multi-Step Form', async ({page}) => {
 	// Step 9. Configure these settings for the Stepper fragment:
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/13.png'});
+
 	// Step 10. Select the Form Container and toggle the *Display All Steps in Edit Mode* to Enabled.
 	await press(page, 'Display All Steps in Edit Mode');
 
 	// Step 11. Scroll down and move these fields into the second step's drop zone:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/14.png'});
 
 	// Step 12. Select the form container and disable the *Display All Steps in Edit Mode* option.
 	await press(page, 'Display All Steps in Edit Mode');
@@ -56,11 +68,15 @@ test('Creating a Multi-Step Form', async ({page}) => {
 	// Step 13. Click the first circle in the Stepper fragment to edit the first step.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/15.png'});
+
 	// Step 14. Drag and drop a *container* above the *Next* button and configure these settings:
 	// Not performed: no control or value named in this step.
 
 	// Step 15. Drag and drop the *Next* button into the container.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/16.png'});
 
 	// Step 16. Go to the second form step in the Stepper fragment.
 	// Not performed: no control or value named in this step.
@@ -70,6 +86,8 @@ test('Creating a Multi-Step Form', async ({page}) => {
 
 	// Step 18. For each *Grid* module, repeat step 17 to drag and drop a *container* fragment into these modules.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/17.png'});
 
 	// Step 19. For the left container, configure these settings:
 	// Not performed: no control or value named in this step.
@@ -91,5 +109,7 @@ test('Creating a Multi-Step Form', async ({page}) => {
 
 	// Step 25. Click *Publish* and test out the form.
 	await press(page, 'Publish');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/18.png'});
 
 });

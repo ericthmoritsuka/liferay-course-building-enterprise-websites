@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Fragment Compositions to Pages', async ({page}) => {
 	await signIn(page, 'admin');
@@ -22,6 +28,8 @@ test('Adding Fragment Compositions to Pages', async ({page}) => {
 	// Step 2. Drag and drop the *Leadership Profile Display* fragment composition into the central content area.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/10.png'});
+
 	// Step 3. Click *Publish*.
 	await press(page, 'Publish');
 
@@ -30,5 +38,7 @@ test('Adding Fragment Compositions to Pages', async ({page}) => {
 
 	// Step 5. Repeat steps 1-3 to add the *Home Page* composition to *Home* and *FAQ Page* composition to *FAQ*. For the Hom
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/11.png'});
 
 });

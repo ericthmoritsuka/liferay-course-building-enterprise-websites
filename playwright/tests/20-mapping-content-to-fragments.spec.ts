@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Mapping Content to Fragments', async ({page}) => {
 	await signIn(page, 'walter');
@@ -29,6 +35,8 @@ test('Mapping Content to Fragments', async ({page}) => {
 	await press(page, 'Image');
 	await press(page, 'Banner');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/11.png'});
+
 	// Step 5. Select the fragment's *image-square* sub-element to access its mapping options.
 	await press(page, 'image-square');
 
@@ -42,12 +50,16 @@ test('Mapping Content to Fragments', async ({page}) => {
 	await press(page, 'Documents and Media');
 	await press(page, 'Sites and Libraries');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/12.png'});
+
 	// Step 9. Go to the *Asset Library* tab, select *Marketing Assets*, and select the image named `home-banner-narrow-no-ba
 	await press(page, 'Asset Library');
 	await press(page, 'Marketing Assets');
 
 	// Step 10. For Field, select *File URL*. The image should appear in the Home page banner.
 	await press(page, 'File URL');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/13.png'});
 
 	// Step 11. Repeat steps 4-10 for the *Image* fragment in the Clarity Solutions Promo container, selecting the `sunglasses
 	// Not performed: no control or value named in this step.
@@ -64,14 +76,20 @@ test('Mapping Content to Fragments', async ({page}) => {
 	// Step 15. For Field, select *File URL*. The texture should overlay the gradient promotion.
 	await press(page, 'File URL');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/14.png'});
+
 	// Step 16. Repeat steps 12-15 for the *Distributor Promo* container and select the `home-promotion` image from the Market
 	await press(page, 'Distributor Promo');
 
 	// Step 17. Select the *Banner Content* container and configure this setting:
 	await press(page, 'Banner Content');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/15.png'});
+
 	// Step 18. Repeat the previous step for these three containers:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/16.png'});
 
 	// Step 19. Click *Publish*.
 	await press(page, 'Publish');

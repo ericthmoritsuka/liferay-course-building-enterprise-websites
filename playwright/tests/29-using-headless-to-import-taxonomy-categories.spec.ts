@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Using Headless to Import Taxonomy Categories', async ({page}) => {
 	await signIn(page, 'admin');
@@ -47,6 +53,8 @@ test('Using Headless to Import Taxonomy Categories', async ({page}) => {
 
 	// Step 10. Paste its contents into the Request Body field in place of the placeholder text.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/06.png'});
 
 	// Step 11. Click *Execute*.
 	await press(page, 'Execute');

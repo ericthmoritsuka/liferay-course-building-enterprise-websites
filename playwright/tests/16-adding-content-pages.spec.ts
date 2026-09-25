@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Content Pages', async ({page}) => {
 	await signIn(page, 'walter');
@@ -26,6 +32,8 @@ test('Adding Content Pages', async ({page}) => {
 	await press(page, 'New');
 	await press(page, 'Primary Master Page');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/04-adding-pages-to-claritys-site/images/06.png'});
+
 	// Step 4. For name, enter `FAQ` and click *Add*.
 	await press(page, 'Add');
 
@@ -34,6 +42,8 @@ test('Adding Content Pages', async ({page}) => {
 
 	// Step 6. Drag and drop *Product Detail* onto *Product List;* then, drag and drop *Product List* onto *Products*.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/04-adding-pages-to-claritys-site/images/07.png'});
 
 	// Step 7. Drag and drop *Open Positions* onto *Careers*.
 	// Not performed: no control or value named in this step.

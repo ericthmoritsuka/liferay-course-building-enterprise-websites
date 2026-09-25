@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Secondary Master Page', async ({page}) => {
 	await signIn(page, 'admin');
@@ -20,6 +26,8 @@ test('Creating a Secondary Master Page', async ({page}) => {
 	await press(page, 'Actions');
 	await press(page, 'Make a Copy');
 	await press(page, 'Master Page');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/16.png'});
 
 	// Step 2. Click *Actions* (![](../../images/icon-actions.png)) for the copy and select *Rename*.
 	await press(page, 'Actions');
@@ -30,6 +38,8 @@ test('Creating a Secondary Master Page', async ({page}) => {
 
 	// Step 4. Begin editing the template and delete these three containers: Header Announcement Bar, Footer Branding, and Fo
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/17.png'});
 
 	// Step 5. Click *Publish Master*.
 	await press(page, 'Publish Master');

@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Vocabulary', async ({page}) => {
 	await signIn(page, 'christian');
@@ -31,6 +37,8 @@ test('Creating a Vocabulary', async ({page}) => {
 
 	// Step 5. Enter these details:
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/05-organizing-claritys-content/images/05.png'});
 
 	// Step 6. Click *Save* then *Ok*to confirm and create the vocabulary.
 	await press(page, 'Save');

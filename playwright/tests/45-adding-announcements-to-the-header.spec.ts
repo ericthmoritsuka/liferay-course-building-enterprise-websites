@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Announcements to the Header', async ({page}) => {
 	await signIn(page, 'admin');
@@ -41,6 +47,8 @@ test('Adding Announcements to the Header', async ({page}) => {
 	// Step 8. Under Brand Colors, select *Brand Color 1*.
 	await press(page, 'Brand Color 1');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/19.png'});
+
 	// Step 9. Add a *Collection Display* fragment to the container, select it, and configure these settings:
 	await press(page, 'Collection Display');
 
@@ -55,6 +63,8 @@ test('Adding Announcements to the Header', async ({page}) => {
 
 	// Step 13. Under Theme Colors, select *Light*.
 	await press(page, 'Light');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/20.png'});
 
 	// Step 14. Select the paragraph's *element-text* sub-element and set its mapping to Content (Announcements) > *Message*.
 	await press(page, 'element-text');

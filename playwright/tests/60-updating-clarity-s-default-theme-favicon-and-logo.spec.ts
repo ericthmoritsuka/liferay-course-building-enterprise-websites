@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Updating Clarity\'s Default Theme, Favicon, and Logo', async ({page}) => {
 	await signIn(page, 'walter');
@@ -26,15 +32,21 @@ test('Updating Clarity\'s Default Theme, Favicon, and Logo', async ({page}) => {
 	await press(page, 'Actions');
 	await press(page, 'Configuration');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/01.png'});
+
 	// Step 4. Click *Change Current Theme* and select *Dialect*.
 	await press(page, 'Change Current Theme');
 	await press(page, 'Dialect');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/02.png'});
 
 	// Step 5. Under Basic Settings, click *Select Favicon* (![](../../images/icon-change.png)) and add the `clarity-favicon.
 	await press(page, 'Select Favicon');
 
 	// Step 6. Click *Change Logo* (![](../../images/icon-change.png)) and select the `clarity-logo-c.png` file found in the 
 	await press(page, 'Change Logo');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/03.png'});
 
 	// Step 7. Scroll down to the bottom and click *Save*.
 	await press(page, 'Save');

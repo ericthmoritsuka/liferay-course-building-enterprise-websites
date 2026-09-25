@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Custom Fragments to Master Pages', async ({page}) => {
 	await signIn(page, 'admin');
@@ -22,8 +28,12 @@ test('Adding Custom Fragments to Master Pages', async ({page}) => {
 	// Step 2. Add the *Search Button* fragment to the Header User Actions container.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/08.png'});
+
 	// Step 3. Select the *Search Button* fragment and configure these settings in the right side panel's General tab:
 	await press(page, 'Search Button');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/08-creating-custom-fragments-for-clarity/images/09.png'});
 
 	// Step 4. Click *Publish Master* and confirm with *Ok*.
 	await press(page, 'Publish Master');

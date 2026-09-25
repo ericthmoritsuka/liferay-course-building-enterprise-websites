@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a New CSS Client Extension', async ({page}) => {
 	await signIn(page, 'admin');
@@ -29,6 +35,8 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	// Step 4. For CSS URL, enter `https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css`.
 	await fill(page, 'CSS URL', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/05.png'});
+
 	// Step 5. Click *Publish*.
 	await press(page, 'Publish');
 
@@ -45,6 +53,8 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	// Step 9. Select the checkbox for *Clarity Animation* and click *Add*.
 	await press(page, 'Clarity Animation');
 	await press(page, 'Add');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/06.png'});
 
 	// Step 10. Scroll down and click *Save*.
 	await press(page, 'Save');
@@ -68,6 +78,8 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	// Step 16. Paste its contents into the fragment's HTML field.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/07.png'});
+
 	// Step 17. Click *Publish*.
 	await press(page, 'Publish');
 
@@ -78,7 +90,11 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	// Step 19. Check all boxes and click *Propagate*.
 	await press(page, 'Propagate');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/08.png'});
+
 	// Step 20. Go to the Home Page and confirm the animation works, fading in the See Further with Clarity Vision Solutions s
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/09.png'});
 
 });

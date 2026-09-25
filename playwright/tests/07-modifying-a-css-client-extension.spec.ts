@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Modifying a CSS Client Extension', async ({page}) => {
 	await signIn(page, 'walter');
@@ -22,11 +28,15 @@ test('Modifying a CSS Client Extension', async ({page}) => {
 	// Step 2. In the Clarity Public Enterprise Website, go to the Home page.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/01.png'});
+
 	// Step 3. Open and copy the contents of the `/exercises/module-10/layout-background-color.scss` file in your course work
 	// Not performed: no control or value named in this step.
 
 	// Step 4. From your course workspace, open the `/client-extensions/clarity-global-css/assets/global.css` file, add the c
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/02.png'});
 
 	// Step 5. Open a terminal window, navigate to the course workspace's `/client-extensions/clarity-global-css/` folder, an
 	// Not performed: this step is done at a terminal, not in a browser.
@@ -36,5 +46,7 @@ test('Modifying a CSS Client Extension', async ({page}) => {
 
 	// Step 7. Go to Clarity's *Home* page and view the background color for See the Difference.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/03.png'});
 
 });

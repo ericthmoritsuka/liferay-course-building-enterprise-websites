@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Clarity\'s Logo to the Master Pages', async ({page}) => {
 	await signIn(page, 'admin');
@@ -25,11 +31,15 @@ test('Adding Clarity\'s Logo to the Master Pages', async ({page}) => {
 	// Step 3. Double click the header's *Image* fragment.
 	await press(page, 'Image');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/06.png'});
+
 	// Step 4. In the configuration side panel, click *Select Image* (![](../../images/icon-plus.png)).
 	await press(page, 'Select Image');
 
 	// Step 5. Click *Sites and Libraries* in the breadcrumb menu.
 	await press(page, 'Sites and Libraries');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/07.png'});
 
 	// Step 6. Go to the *Asset Library* tab.
 	// Not performed: no control or value named in this step.
@@ -43,8 +53,12 @@ test('Adding Clarity\'s Logo to the Master Pages', async ({page}) => {
 	// Step 9. In the configuration side panel, configure these settings for the image-square element:
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/08.png'});
+
 	// Step 10. Repeat steps 3-9 for the footer image fragment, instead selecting the `logo-full-name-vector` image.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/09.png'});
 
 	// Step 11. Click *Publish Master* and confirm with *Ok* to save your changes to the primary master page.
 	await press(page, 'Publish Master');

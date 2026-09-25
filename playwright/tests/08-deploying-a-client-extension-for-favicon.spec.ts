@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Deploying a Client Extension for Favicon', async ({page}) => {
 	await signIn(page, 'admin');
@@ -44,5 +50,7 @@ test('Deploying a Client Extension for Favicon', async ({page}) => {
 
 	// Step 9. Go to the Home page and verify the page's favicon was updated to white text on a green background.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/10-extending-liferay-dxp/03-extending-claritys-front-end/images/04.png'});
 
 });

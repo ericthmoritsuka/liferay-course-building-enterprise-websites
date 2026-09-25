@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Updating Menu Display Fragments', async ({page}) => {
 	await signIn(page, 'admin');
@@ -29,6 +35,8 @@ test('Updating Menu Display Fragments', async ({page}) => {
 	await press(page, 'Header Page Menu');
 	await press(page, 'Select This Level');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/08.png'});
+
 	// Step 5. Click *Publish Master**,*then confirm by clicking *Ok*.
 	await press(page, 'then confirm by clicking');
 
@@ -37,5 +45,7 @@ test('Updating Menu Display Fragments', async ({page}) => {
 
 	// Step 7. Navigate to the Home page to observe how your changes to the template were automatically applied to the connec
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/07-creating-claritys-navigation-menus/images/09.png'});
 
 });

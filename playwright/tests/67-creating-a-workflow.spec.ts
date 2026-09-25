@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Workflow', async ({page}) => {
 	await signIn(page, 'admin');
@@ -31,11 +37,15 @@ test('Creating a Workflow', async ({page}) => {
 	// Step 5. In the Nodes panel, find the *Task* node and drag it into the workflow editor.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/01.png'});
+
 	// Step 6. In the side panel, configure these settings for the Task node.
 	// Not performed: no control or value named in this step.
 
 	// Step 7. Click the *Start* node, then hover your mouse over it and drag an arrow to the Task node.
 	await press(page, 'Start');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/02.png'});
 
 	// Step 8. In the side panel, configure these settings for the Transition Label.
 	// Not performed: no control or value named in this step.
@@ -43,8 +53,12 @@ test('Creating a Workflow', async ({page}) => {
 	// Step 9. Drag another arrow from the Follow Up node to the End node.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/03.png'});
+
 	// Step 10. In the side panel, configure these settings for the second Transition Label.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/04.png'});
 
 	// Step 11. Click the *Follow Up* node to begin configuring it.
 	await press(page, 'Follow Up');
@@ -57,6 +71,8 @@ test('Creating a Workflow', async ({page}) => {
 
 	// Step 14. For Role, select *Distributor Representative*.
 	await press(page, 'Distributor Representative');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/05.png'});
 
 	// Step 15. Click *Back* (![Back Arrow](../../images/icon-angle-left.png)) on the sidebar to continue editing the Follow U
 	await press(page, 'Back');
@@ -79,6 +95,8 @@ test('Creating a Workflow', async ({page}) => {
 	// Step 21. For Role Name, select *Distributor Representative*.
 	await press(page, 'Distributor Representative');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/06.png'});
+
 	// Step 22. Click the End node to begin configuring it.
 	// Not performed: no control or value named in this step.
 
@@ -90,5 +108,7 @@ test('Creating a Workflow', async ({page}) => {
 
 	// Step 25. Click *Publish*.
 	await press(page, 'Publish');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/07.png'});
 
 });

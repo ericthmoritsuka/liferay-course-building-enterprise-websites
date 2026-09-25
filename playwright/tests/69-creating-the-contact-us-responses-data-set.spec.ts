@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating the Contact Us Responses Data Set', async ({page}) => {
 	await signIn(page, 'admin');
@@ -21,6 +27,8 @@ test('Creating the Contact Us Responses Data Set', async ({page}) => {
 
 	// Step 2. Click *Add* to create a new data set and enter these details:
 	await press(page, 'Add');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/09.png'});
 
 	// Step 3. Click *Save*.
 	await press(page, 'Save');
@@ -44,8 +52,12 @@ test('Creating the Contact Us Responses Data Set', async ({page}) => {
 	await press(page, 'Add');
 	await press(page, 'Assign from Data Source');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/10.png'});
+
 	// Step 10. Select the *fullName* field.
 	await press(page, 'fullName');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/11.png'});
 
 	// Step 11. Click *Save*.
 	await press(page, 'Save');
@@ -59,5 +71,7 @@ test('Creating the Contact Us Responses Data Set', async ({page}) => {
 
 	// Step 14. Click *Add*.
 	await press(page, 'Add');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/12.png'});
 
 });

@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Configuring the Site', async ({page}) => {
 	await signIn(page, 'admin');
@@ -22,6 +28,8 @@ test('Configuring the Site', async ({page}) => {
 	// Step 2. Open the *Site Menu* (![](../../images/icon-product-menu.png)), expand *Configuration*, and select *Site Setti
 	await openMenu(page, 'Site Menu', 'Configuration', 'Site Settings');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/08.png'});
+
 	// Step 3. Go to *Site Configuration* and open the *Details* tab.
 	// Not performed: no control or value named in this step.
 
@@ -30,6 +38,8 @@ test('Configuring the Site', async ({page}) => {
 
 	// Step 5. Set membership type to *Open*.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/09.png'});
 
 	// Step 6. Click *Save*.
 	await press(page, 'Save');
@@ -46,6 +56,8 @@ test('Configuring the Site', async ({page}) => {
 	// Step 10. Click *Add* to add an extra virtual host for Spanish with the URL `www.solucionesdeclaridad.com`.
 	await press(page, 'Add');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/10.png'});
+
 	// Step 11. Click *Save*.
 	await press(page, 'Save');
 
@@ -58,6 +70,8 @@ test('Configuring the Site', async ({page}) => {
 	// Step 14. Use the *left arrow* (![](../../images/icon-caret-left.png)) button to remove all languages except English and
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/11.png'});
+
 	// Step 15. Click *Save*.
 	await press(page, 'Save');
 
@@ -66,6 +80,8 @@ test('Configuring the Site', async ({page}) => {
 
 	// Step 17. Check the box to enable the accessibility menu.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/12.png'});
 
 	// Step 18. Click *Update*.
 	await press(page, 'Update');

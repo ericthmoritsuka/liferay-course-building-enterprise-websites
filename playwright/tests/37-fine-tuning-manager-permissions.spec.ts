@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Fine Tuning Manager Permissions', async ({page}) => {
 	await signIn(page, 'admin');
@@ -62,13 +68,19 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	await press(page, 'Actions');
 	await press(page, 'Permissions');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/13.png'});
+
 	// Step 16. For the Marketing Manager role, select these permissions and click *Save*:
 	await press(page, 'Save');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/14.png'});
 
 	// Step 17. Go to the *Users and Organizations* application in the Global Menu.
 	// Not performed: no control or value named in this step.
 
 	// Step 18. Impersonate Clara Murphy to verify the Marketing Manager role permissions.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/15.png'});
 
 });

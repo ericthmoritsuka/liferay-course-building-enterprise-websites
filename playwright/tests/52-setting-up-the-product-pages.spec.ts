@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Setting Up the Product Pages', async ({page}) => {
 	await signIn(page, 'walter');
@@ -36,11 +42,15 @@ test('Setting Up the Product Pages', async ({page}) => {
 	await press(page, 'Actions');
 	await press(page, 'Configuration');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/12.png'});
+
 	// Step 7. For Vocabulary, select *Clarity Products*.
 	await press(page, 'Clarity Products');
 
 	// Step 8. Click *Save* and close the modal window.
 	await press(page, 'Save');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/13.png'});
 
 	// Step 9. Click *Publish* to view the updated page.
 	await press(page, 'Publish');
@@ -84,11 +94,15 @@ test('Setting Up the Product Pages', async ({page}) => {
 	// Step 21. Click *Publish* and view the page.
 	await press(page, 'Publish');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/14.png'});
+
 	// Step 22. Go to and begin editing the *Product List* page.
 	// Not performed: no control or value named in this step.
 
 	// Step 23. From the *Components* panel (![](../../images/icon-plus.png)), drag and drop the *Category Content* widget jus
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/15.png'});
 
 	// Step 24. Click *Publish*.
 	await press(page, 'Publish');
@@ -124,6 +138,8 @@ test('Setting Up the Product Pages', async ({page}) => {
 	// Step 34. Within the Search Results container's grid element, select the *Search Results* widget.
 	await press(page, 'Search Results');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/16.png'});
+
 	// Step 35. Click its *Actions* button (![](../../images/icon-actions.png)), and click *Configuration*.
 	await press(page, 'Actions');
 	await press(page, 'Configuration');
@@ -139,6 +155,8 @@ test('Setting Up the Product Pages', async ({page}) => {
 
 	// Step 39. View the *Products* page again and click one of the category cards.
 	await press(page, 'Products');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/17.png'});
 
 	// Step 40. In the *Page Templates* application, go to the *Display Page Templates* tab.
 	// Not performed: no control or value named in this step.
@@ -156,11 +174,15 @@ test('Setting Up the Product Pages', async ({page}) => {
 	// Step 44. Drag and drop the *Product Details Page* fragment composition into the drop zone.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/18.png'});
+
 	// Step 45. In the Product Details container's Description Container, map these fragments with their corresponding product
 	// Not performed: no control or value named in this step.
 
 	// Step 46. Select the button's *link* sub-element and configure these settings:
 	await press(page, 'link');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/19.png'});
 
 	// Step 47. Double click the *Button* fragment and change its text to `Contact Sales`.
 	await press(page, 'Button');

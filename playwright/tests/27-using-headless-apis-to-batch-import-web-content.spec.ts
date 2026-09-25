@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Using Headless APIs to Batch Import Web Content', async ({page}) => {
 	await signIn(page, 'admin');
@@ -39,5 +45,7 @@ test('Using Headless APIs to Batch Import Web Content', async ({page}) => {
 
 	// Step 8. Open the *Articles* folder and confirm the three new articles appear.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/03.png'});
 
 });

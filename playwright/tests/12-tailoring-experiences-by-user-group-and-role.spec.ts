@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Tailoring Experiences by User Group and Role', async ({page}) => {
 	await signIn(page, 'walter');
@@ -26,6 +32,8 @@ test('Tailoring Experiences by User Group and Role', async ({page}) => {
 	await press(page, 'Experience');
 	await press(page, 'New Experience');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/07-analytics-and-personalization/03-personalizing-experiences-for-claritys-users/images/05.png'});
+
 	// Step 4. For Name, enter `Distributor`.
 	await fill(page, 'Name', 'Distributor');
 
@@ -38,11 +46,15 @@ test('Tailoring Experiences by User Group and Role', async ({page}) => {
 	// Step 7. Click the up arrow on the Distributor row to position the segment above the Default item.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/07-analytics-and-personalization/03-personalizing-experiences-for-claritys-users/images/06.png'});
+
 	// Step 8. Modify the title text in the Banner to say `Welcome Back! Elevate Your Inventory with Premium Eyewear`.
 	// Not performed: no control or value named in this step.
 
 	// Step 9. Hide the `Distributor Promo` container, since distributors don't need to apply.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/07-analytics-and-personalization/03-personalizing-experiences-for-claritys-users/images/07.png'});
 
 	// Step 10. Click *Publish*.
 	await press(page, 'Publish');
@@ -52,5 +64,7 @@ test('Tailoring Experiences by User Group and Role', async ({page}) => {
 
 	// Step 12. With Preview By set to *Segments*, use the Segment dropdown menu to toggle between *Anyone* and *Distributor*.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/07-analytics-and-personalization/03-personalizing-experiences-for-claritys-users/images/08.png'});
 
 });

@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Users to a Site', async ({page}) => {
 	await signIn(page, 'ian');
@@ -26,6 +32,8 @@ test('Adding Users to a Site', async ({page}) => {
 	// Step 3. Open the *Site Menu* (![](../../images/icon-product-menu.png)), expand *People*, and select *Memberships*.
 	await openMenu(page, 'Site Menu', 'People', 'Memberships');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/06.png'});
+
 	// Step 4. Click *New*.
 	await press(page, 'New');
 
@@ -35,6 +43,8 @@ test('Adding Users to a Site', async ({page}) => {
 
 	// Step 6. Click *Done*.
 	await press(page, 'Done');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/07.png'});
 
 	// Step 7. Click *Actions* (![](../../images/icon-actions.png)) for Christian Carter and select *Assign Roles*.
 	await press(page, 'Actions');

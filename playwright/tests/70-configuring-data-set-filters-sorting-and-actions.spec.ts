@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	await signIn(page, 'admin');
@@ -34,8 +40,12 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	// Step 5. Create a new filter with these details:
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/13.png'});
+
 	// Step 6. Click *Save*.
 	await press(page, 'Save');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/14.png'});
 
 	// Step 7. Go to the *Sorting* tab and click *Add* (![](../../images/icon-plus.png)).
 	await press(page, 'Sorting');
@@ -48,8 +58,12 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	await press(page, 'Use as Default Sorting');
 	await press(page, 'Save');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/15.png'});
+
 	// Step 10. Repeat steps 7 and 8 to create two more sorting options:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/16.png'});
 
 	// Step 11. Go to the *Actions* tab, click *Add* (![](../../images/icon-plus.png)), and enter these details:
 	await press(page, 'Actions');
@@ -70,6 +84,8 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	// Step 16. At the end of the URL, change the individual entry's external reference code to {externalReferenceCode}
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/17.png'});
+
 	// Step 17. Click *Save*.
 	await press(page, 'Save');
 
@@ -78,5 +94,7 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 
 	// Step 19. Click *Save*.
 	await press(page, 'Save');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/18.png'});
 
 });

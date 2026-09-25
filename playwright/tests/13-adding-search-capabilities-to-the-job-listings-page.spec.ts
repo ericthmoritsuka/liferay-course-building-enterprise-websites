@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	await signIn(page, 'walter');
@@ -31,6 +37,8 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	// Step 5. Drag and drop a *Search Bar* widget into the Banner container, placing it under the Heading fragment.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/02.png'});
+
 	// Step 6. Select the widget and configure this setting:
 	// Not performed: no control or value named in this step.
 
@@ -44,11 +52,15 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	// Step 9. Use the left arrow button (![](../../images/icon-angle-left.png)) to remove all asset types except for Web Con
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/03.png'});
+
 	// Step 10. Click *Save* and close the configuration window.
 	await press(page, 'Save');
 
 	// Step 11. From the *Components* panel, drag and drop three *Category Facet* widgets into the left module of the grid fra
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/04.png'});
 
 	// Step 12. Select the first *Category Facet* widget, click its *Actions* button (![](../../images/icon-actions.png)) and 
 	await press(page, 'Category Facet');
@@ -57,6 +69,8 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 
 	// Step 13. For Display Template, select the *Clarity Search Category* template.
 	await press(page, 'Clarity Search Category');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/05.png'});
 
 	// Step 14. For Category Parameter Name, enter a unique value (e.g., `category-region`).
 	await fill(page, 'Category Parameter Name', 'category-region');
@@ -68,6 +82,8 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	await press(page, 'Clarity Enterprise Website');
 	await press(page, 'Region');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/06.png'});
+
 	// Step 17. Click *Save* and close the configuration window.
 	await press(page, 'Save');
 
@@ -78,8 +94,12 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	// Step 19. From the *Components* panel, drag and drop a *Search Results* widget into the right module of the grid fragmen
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/07.png'});
+
 	// Step 20. From the *Components* panel, drag and drop a *Search Options* widget into the Search Results and Options conta
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/08.png'});
 
 	// Step 21. Select the *Search Options* widget, click its *Actions* button (![](../../images/icon-actions.png)), and selec
 	await press(page, 'Search Options');
@@ -95,11 +115,15 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	// Step 24. Click *Publish*.
 	await press(page, 'Publish');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/09.png'});
+
 	// Step 25. Go to the *Careers* page and begin editing it (![](../../images/icon-edit.png)).
 	// Not performed: no control or value named in this step.
 
 	// Step 26. Select the banner's *Explore Open Positions* button and open the configuration side panel for its link element
 	await press(page, 'Explore Open Positions');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/10.png'});
 
 	// Step 27. Go to the *Link* tab and configure these settings:
 	// Not performed: no control or value named in this step.

@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Displaying the Data Set on a Page', async ({page}) => {
 	await signIn(page, 'walter');
@@ -41,10 +47,14 @@ test('Displaying the Data Set on a Page', async ({page}) => {
 	await press(page, 'Contact Us Responses');
 	await press(page, 'Save');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/19.png'});
+
 	// Step 9. Click *Publish*.
 	await press(page, 'Publish');
 
 	// Step 10. Verify everything works as expected:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/20.png'});
 
 });

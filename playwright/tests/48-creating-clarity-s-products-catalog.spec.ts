@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Clarity\'s Products Catalog', async ({page}) => {
 	await signIn(page, 'ian');
@@ -28,7 +34,11 @@ test('Creating Clarity\'s Products Catalog', async ({page}) => {
 	// Step 4. Enter the following:
 	// Not performed: the step does not name a field and a value plainly enough.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/04.png'});
+
 	// Step 5. Click *Submit* to finish creating the catalog.
 	await press(page, 'Submit');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/05.png'});
 
 });

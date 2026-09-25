@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Dynamic Collection', async ({page}) => {
 	await signIn(page, 'admin');
@@ -45,6 +51,8 @@ test('Creating a Dynamic Collection', async ({page}) => {
 	await press(page, 'Filter');
 	await press(page, 'Categories');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/11.png'});
+
 	// Step 9. Click *Retail Partners* then click *Save* to create the collection.
 	await press(page, 'Retail Partners');
 	await press(page, 'Save');
@@ -54,5 +62,7 @@ test('Creating a Dynamic Collection', async ({page}) => {
 
 	// Step 11. Repeat steps 2-10 to create three more dynamic collections:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/12.png'});
 
 });

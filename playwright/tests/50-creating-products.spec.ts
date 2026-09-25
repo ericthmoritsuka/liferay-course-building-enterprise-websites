@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Products', async ({page}) => {
 	await signIn(page, 'admin');
@@ -32,6 +38,8 @@ test('Creating Products', async ({page}) => {
 	// Step 5. In the Full Description field editor, add a product description with the *AI Creator* button (![](../../images
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/07.png'});
+
 	// Step 6. In the Categorization section, click *Select* for Clarity Products.
 	await press(page, 'Select');
 
@@ -48,6 +56,8 @@ test('Creating Products', async ({page}) => {
 
 	// Step 10. Repeat steps 8-9 for the other specifications and enter these values:
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/08.png'});
 
 	// Step 11. Click *Save as Draft* to save your changes.
 	await press(page, 'Save as Draft');
@@ -68,10 +78,14 @@ test('Creating Products', async ({page}) => {
 	// Step 16. Click *Publish* to save the product image.
 	await press(page, 'Publish');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/09.png'});
+
 	// Step 17. Click *Publish* to finish creating the product.
 	await press(page, 'Publish');
 
 	// Step 18. Repeat steps 1-17 to create two more simple products: AquaComfort Plus Dailies and Single Vision Lenses.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/10.png'});
 
 });

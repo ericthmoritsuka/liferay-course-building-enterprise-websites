@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating a Commerce Channel', async ({page}) => {
 	await signIn(page, 'admin');
@@ -41,6 +47,8 @@ test('Creating a Commerce Channel', async ({page}) => {
 	// Step 8. Go to the *General* tab, select *B2B* in the Commerce Site Type drop down menu.
 	await press(page, 'General');
 	await press(page, 'B2B');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/11.png'});
 
 	// Step 9. Click *Save*.
 	await press(page, 'Save');

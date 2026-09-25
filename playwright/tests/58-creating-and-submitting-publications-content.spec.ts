@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating and Submitting Publications Content', async ({page}) => {
 	await signIn(page, 'christian');
@@ -21,6 +27,8 @@ test('Creating and Submitting Publications Content', async ({page}) => {
 
 	// Step 2. Click the user profile icon, go to *Notifications*, and select the publications invitation.
 	await press(page, 'Notifications');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/08.png'});
 
 	// Step 3. Click the *Publications* drop-down menu at the top of the page, click *Select a Publication*, and select *Arti
 	await press(page, 'Publications');

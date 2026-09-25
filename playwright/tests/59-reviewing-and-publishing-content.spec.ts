@@ -11,13 +11,21 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Reviewing and Publishing Content', async ({page}) => {
 	await signIn(page, 'clara');
 
 	// Step 1. Sign in using these credentials:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/09.png'});
 
 	// Step 2. Click the *Publications* drop-down menu at the top of the page, click *Select a Publication*, and choose *Arti
 	await press(page, 'Publications');
@@ -30,6 +38,8 @@ test('Reviewing and Publishing Content', async ({page}) => {
 
 	// Step 4. Click *Publish*.
 	await press(page, 'Publish');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/10.png'});
 
 	// Step 5. Click Clara's user profile icon and go to *My Workflow Tasks*.
 	await press(page, 'My Workflow Tasks');
@@ -58,5 +68,7 @@ test('Reviewing and Publishing Content', async ({page}) => {
 	// Step 12. Click *Publish*, verify there are no conflicts, and click *Publish* again to add the changes to production.
 	await press(page, 'Publish');
 	await press(page, 'Publish');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/11.png'});
 
 });

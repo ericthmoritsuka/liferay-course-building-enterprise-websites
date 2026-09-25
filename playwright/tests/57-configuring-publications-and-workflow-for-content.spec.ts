@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await signIn(page, 'ian');
@@ -56,12 +62,16 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	// Step 13. Click *Save*.
 	await press(page, 'Save');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/05.png'});
+
 	// Step 14. Go to the *Publications* application in the Global Menu (![](../../images/icon-applications-menu.png)).
 	// Not performed: no control or value named in this step.
 
 	// Step 15. Click *Actions* (![](../../images/icon-actions.png)) for Article Publication, and select *Invite Users*.
 	await press(page, 'Actions');
 	await press(page, 'Invite Users');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/06.png'});
 
 	// Step 16. Click the role drop-down menu and select *Editor*.
 	await press(page, 'Editor');
@@ -71,6 +81,8 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 
 	// Step 18. Repeat steps 3-4 to invite Clara Murphy using these values:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/07.png'});
 
 	// Step 19. Click *Send* and click *OK* to confirm.
 	await press(page, 'Send');

@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Generating Content with ChatGPT (Optional)', async ({page}) => {
 	await signIn(page, 'admin');
@@ -44,6 +50,8 @@ test('Generating Content with ChatGPT (Optional)', async ({page}) => {
 
 	// Step 9. Click *AI Creator* (![](../../images/icon-ai-creator.png)) to generate content with ChatGPT.
 	await press(page, 'AI Creator');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/18.png'});
 
 	// Step 10. Enter your desired description, tone, and word count.
 	// Not performed: the step does not name a field and a value plainly enough.

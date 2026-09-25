@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Search Blueprints with Custom Fields', async ({page}) => {
 	await signIn(page, 'admin');
@@ -56,6 +62,8 @@ test('Search Blueprints with Custom Fields', async ({page}) => {
 	// Step 13. Make note of the blueprint's ID for a future step, then click *Save*.
 	await press(page, 'Save');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/13.png'});
+
 	// Step 14. Open a new browser window and access Liferay's API Explorer at `http://localhost:8080/o/api`.
 	// Not performed: no control or value named in this step.
 
@@ -81,10 +89,14 @@ test('Search Blueprints with Custom Fields', async ({page}) => {
 	// Step 21. Replace `{blueprint ID}` with your blueprint's ID.
 	// Not performed: no control or value named in this step.
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/14.png'});
+
 	// Step 22. Click *Execute*.
 	await press(page, 'Execute');
 
 	// Step 23. Verify this returns Ian Miller's user information.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/15.png'});
 
 });

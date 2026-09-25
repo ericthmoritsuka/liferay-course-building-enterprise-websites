@@ -11,13 +11,21 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Search Capabilities to Product Pages', async ({page}) => {
 	await signIn(page, 'admin');
 
 	// Step 1. Go to Clarity's *Product List* page and observe the included components.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/11.png'});
 
 	// Step 2. Begin editing the page.
 	// Not performed: no control or value named in this step.
@@ -38,5 +46,7 @@ test('Adding Search Capabilities to Product Pages', async ({page}) => {
 
 	// Step 7. Click *Publish*.
 	await press(page, 'Publish');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/12.png'});
 
 });

@@ -11,13 +11,21 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Categories to a Vocabulary', async ({page}) => {
 	await signIn(page, 'admin');
 
 	// Step 1. In the Categories application, select the *FAQ* vocabulary in the Vocabularies sidebar.
 	await press(page, 'FAQ');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/05-organizing-claritys-content/images/06.png'});
 
 	// Step 2. Click *New* and enter `Retail Partners` for Name.
 	await press(page, 'New');

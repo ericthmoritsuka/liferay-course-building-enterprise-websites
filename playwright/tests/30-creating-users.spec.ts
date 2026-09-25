@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating Users', async ({page}) => {
 	await signIn(page, 'admin');
@@ -21,6 +27,10 @@ test('Creating Users', async ({page}) => {
 
 	// Step 2. Open the *Global Menu* (![](../../images/icon-applications-menu.png)), go to the *Control Panel* tab, and clic
 	await openMenu(page, 'Global Menu', 'Control Panel', 'Users and Organizations');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/05-adding-claritys-users-and-groups/images/02.png'});
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/05-adding-claritys-users-and-groups/images/03.png'});
 
 	// Step 3. Click *New*.
 	await press(page, 'New');
@@ -32,8 +42,12 @@ test('Creating Users', async ({page}) => {
 	// Step 5. Go to the `liferay-building-enterprise-websites/exercises/module-4/` course workspace folder, select `christia
 	await press(page, 'Done');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/05-adding-claritys-users-and-groups/images/04.png'});
+
 	// Step 6. Enter these details for Christian Carter:
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/05-adding-claritys-users-and-groups/images/05.png'});
 
 	// Step 7. Scroll to the bottom and click *Save*.
 	await press(page, 'Save');
@@ -43,6 +57,8 @@ test('Creating Users', async ({page}) => {
 
 	// Step 9. Enter `learn` for his password.
 	await fill(page, 'password', 'learn');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/05-adding-claritys-users-and-groups/images/06.png'});
 
 	// Step 10. Click *Save*.
 	await press(page, 'Save');

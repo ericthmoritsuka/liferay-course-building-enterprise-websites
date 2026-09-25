@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Setting Up the Clarity Workspace', async ({page}) => {
 	await signIn(page, 'admin');
@@ -40,6 +46,8 @@ test('Setting Up the Clarity Workspace', async ({page}) => {
 	// Step 8. Go to the *Index Actions* tab and click *Reindex* for All Search Indexes.
 	await press(page, 'Index Actions');
 	await press(page, 'Reindex');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/03-course-environment-setup/02-setting-up-claritys-workspace/images/02.png'});
 
 	// Step 9. When prompted, click *Execute* to confirm.
 	await press(page, 'Execute');

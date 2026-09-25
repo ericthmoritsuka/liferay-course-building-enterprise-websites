@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Configuring the Instance\'s Default Home and Landing Pages', async ({page}) => {
 	await signIn(page, 'admin');
@@ -34,6 +40,8 @@ test('Configuring the Instance\'s Default Home and Landing Pages', async ({page}
 
 	// Step 6. For Default Logout Page, enter `/web/clarity`.
 	await fill(page, 'Default Logout Page', '/web/clarity');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/13.png'});
 
 	// Step 7. Click *Save*.
 	await press(page, 'Save');

@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Customizing Search Results with Search Blueprints', async ({page}) => {
 	await signIn(page, 'walter');
@@ -48,11 +54,15 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 	await press(page, 'Filter');
 	await press(page, 'Add');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/01.png'});
+
 	// Step 11. For the Filter by Exact Terms Match Field, enter `ddmStructureKey`.
 	await fill(page, 'Filter by Exact Terms Match', 'ddmStructureKey');
 
 	// Step 12. For Values, enter step 5's Job Listing structure key.
 	// Not performed: the step does not name a field and a value plainly enough.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/02.png'});
 
 	// Step 13. In the Query Builder tab, click *Selected Types* in the Source section.
 	await press(page, 'Selected Types');
@@ -68,6 +78,8 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 	// Step 16. In the *Query Builder* tab, click *Add* (![](../../images/icon-add.png)) within Query Elements to add a second
 	await press(page, 'Add');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/03.png'});
+
 	// Step 17. In the right configuration menu, expand the *Boost* section, and click *Add* for Boost All Keywords Match.
 	await press(page, 'Boost');
 	await press(page, 'Add');
@@ -78,6 +90,8 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 	// Step 19. Click *Preview* and click *Refresh* to see the filter applied.
 	await press(page, 'Preview');
 	await press(page, 'Refresh');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/04.png'});
 
 	// Step 20. Change `VP` to `Associate` and click *Refresh* in the search preview.
 	await press(page, 'Refresh');
@@ -90,6 +104,8 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 
 	// Step 23. From the *Components* panel, drag and drop a *Blueprints Options* widget into the Search Results and Options c
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/05.png'});
 
 	// Step 24. Select the *Blueprints Options* widget, click its *Options* button (![](../../images/icon-options.png)), and s
 	await press(page, 'Blueprints Options');

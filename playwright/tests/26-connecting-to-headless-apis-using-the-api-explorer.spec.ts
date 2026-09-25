@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Connecting to Headless APIs Using the API Explorer', async ({page}) => {
 	await signIn(page, 'walter');
@@ -45,6 +51,8 @@ test('Connecting to Headless APIs Using the API Explorer', async ({page}) => {
 
 	// Step 10. Scroll down to the *Document* section and expand the *postSiteDocument* endpoint.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/01.png'});
 
 	// Step 11. For the siteId field, enter the site ID for Clarity Public Enterprise Website.
 	// Not performed: the step does not name a field and a value plainly enough.
@@ -87,5 +95,7 @@ test('Connecting to Headless APIs Using the API Explorer', async ({page}) => {
 
 	// Step 24. Confirm the `Things I Find Interesting in Eyewear` blog post appears.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/02.png'});
 
 });

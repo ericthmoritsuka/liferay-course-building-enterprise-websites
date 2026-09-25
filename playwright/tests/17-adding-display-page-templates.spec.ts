@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Adding Display Page Templates', async ({page}) => {
 	await signIn(page, 'admin');
@@ -38,6 +44,8 @@ test('Adding Display Page Templates', async ({page}) => {
 	// Step 7. For Subtype, select *Leadership Profile*.
 	await press(page, 'Leadership Profile');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/04-adding-pages-to-claritys-site/images/08.png'});
+
 	// Step 8. Click *Save*.
 	await press(page, 'Save');
 
@@ -47,5 +55,7 @@ test('Adding Display Page Templates', async ({page}) => {
 	// Step 10. Click *Actions* (![](../../images/icon-actions.png)) for the Leadership Profile template and select *Mark as D
 	await press(page, 'Actions');
 	await press(page, 'Mark as Default');
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/04-adding-pages-to-claritys-site/images/09.png'});
 
 });

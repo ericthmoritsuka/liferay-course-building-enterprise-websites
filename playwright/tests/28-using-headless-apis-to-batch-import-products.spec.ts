@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Using Headless APIs to Batch Import Products', async ({page}) => {
 	await signIn(page, 'ian');
@@ -35,6 +41,8 @@ test('Using Headless APIs to Batch Import Products', async ({page}) => {
 	await press(page, 'REST Applications');
 	await press(page, 'headless-commerce-admin-catalog/v1.0');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/04.png'});
+
 	// Step 7. Scroll down to the Product section and expand the *postProductBatch* endpoint.
 	// Not performed: no control or value named in this step.
 
@@ -55,5 +63,7 @@ test('Using Headless APIs to Batch Import Products', async ({page}) => {
 
 	// Step 13. Confirm eight new products appear.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/08-headless-apis/04-using-apis-to-import-claritys-content/images/05.png'});
 
 });

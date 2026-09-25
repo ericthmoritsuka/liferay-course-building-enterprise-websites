@@ -11,7 +11,13 @@
 import {test} from '@playwright/test';
 
 import {fill, openMenu, press} from '../helpers/liferay';
+import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
+
+//
+// The style guide's display width, captured at twice it.
+//
+test.use(CAPTURE);
 
 test('Creating an Object Definition', async ({page}) => {
 	await signIn(page, 'admin');
@@ -44,8 +50,12 @@ test('Creating an Object Definition', async ({page}) => {
 	await press(page, 'New');
 	await press(page, 'Save');
 
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/03.png'});
+
 	// Step 10. Repeat the previous step to create the remaining six fields:
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/04.png'});
 
 	// Step 11. Return to the *Details* tab and click *Publish*.
 	await press(page, 'Publish');
@@ -65,6 +75,8 @@ test('Creating an Object Definition', async ({page}) => {
 
 	// Step 16. Check all permissions under *General Permissions* and *Resource Permissions*.
 	// Not performed: no control or value named in this step.
+
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/05.png'});
 
 	// Step 17. Click *Save*.
 	await press(page, 'Save');
