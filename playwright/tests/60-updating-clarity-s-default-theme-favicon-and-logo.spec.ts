@@ -1,0 +1,42 @@
+/**
+ * Updating Clarity's Default Theme, Favicon, and Logo
+ *
+ * Generated from courses/latest/en/building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling.md.
+ * Edit the lesson and regenerate; edits here are overwritten.
+ *
+ * A pass means nothing blocked a reader. It does not mean the
+ * exercise built the right thing - nothing records what it should
+ * build.
+ */
+import {test} from '@playwright/test';
+
+import {fill, openMenu, press} from '../helpers/liferay';
+import {signIn} from '../helpers/sign-in';
+
+test('Updating Clarity\'s Default Theme, Favicon, and Logo', async ({page}) => {
+	await signIn(page, 'walter');
+
+	// Step 1. Sign in using these credentials:
+	// Not performed: no control or value named in this step.
+
+	// Step 2. Open the *Site Menu* (![](../../images/icon-product-menu.png)), expand *Site Builder*, and click *Pages*.
+	await openMenu(page, 'Site Menu', 'Site Builder', 'Pages');
+
+	// Step 3. Click *Actions* (![](../../images/icon-actions.png)) in the Application Bar and select *Configuration*.
+	await press(page, 'Actions');
+	await press(page, 'Configuration');
+
+	// Step 4. Click *Change Current Theme* and select *Dialect*.
+	await press(page, 'Change Current Theme');
+	await press(page, 'Dialect');
+
+	// Step 5. Under Basic Settings, click *Select Favicon* (![](../../images/icon-change.png)) and add the `clarity-favicon.
+	await press(page, 'Select Favicon');
+
+	// Step 6. Click *Change Logo* (![](../../images/icon-change.png)) and select the `clarity-logo-c.png` file found in the 
+	await press(page, 'Change Logo');
+
+	// Step 7. Scroll down to the bottom and click *Save*.
+	await press(page, 'Save');
+
+});
