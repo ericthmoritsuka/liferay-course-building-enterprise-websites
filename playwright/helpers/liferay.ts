@@ -94,6 +94,30 @@ export async function openMenu(
 	// server, so pressing it blindly closes a menu that was already open and
 	// the applications vanish.
 	//
+	//
+	// Confirmed open, and reopened if it is not.
+	//
+	// The toggle keeps its state on the server, so a stale state makes this
+	// skip the click and search a menu that is shut - which reported the menu
+	// as offering no such application. Intermittent, and it cost a test that
+	// had been passing.
+	//
+	for (let attempt = 0; attempt < 3; attempt++) {
+		if (await panel.isVisible().catch(() => false)) {
+			break;
+		}
+
+		await page
+			.locator(menu.trigger)
+			.first()
+			.click({timeout: 4000})
+			.catch(() => undefined);
+
+		await panel
+			.waitFor({state: 'visible', timeout: 4000})
+			.catch(() => undefined);
+	}
+
 	if (!(await panel.isVisible().catch(() => false))) {
 		await page.locator(menu.trigger).first().click();
 
@@ -126,25 +150,103 @@ export async function openMenu(
 	// nothing while standing on the tab that happened to be showing.
 	//
 	if (!section) {
-		const tabs = page.locator(
-			`${menu.root} [role="tab"], ${menu.root} [role="button"][aria-expanded]`
-		);
 
-		const count = await tabs.count().catch(() => 0);
+		//
+		// Each section is tried in turn, reopening the menu before every one.
+		//
+		// Clicking a Global Menu section closes the dropdown, so walking the
+		// tabs in a single pass closes the menu on the first click and then
+		// searches a screen with no menu on it. The sections are read once
+		// while the panel is open, and the panel is reopened for each.
+		//
+		//
+		// A section of this menu is a link, not a tab.
+		//
+		// Read from a running instance rather than assumed: the Global Menu
+		// holds Applications, Commerce, CMS, Control Panel, and then the
+		// sites. Looking for [role="tab"] found nothing at all, so the walk
+		// had no sections to try and every unsectioned path failed.
+		//
+		// The two that hold administrative applications are tried first, so a
+		// site link - which navigates away - is only reached if neither had
+		// what the lesson named.
+		//
+		//
+		// Only the sections that hold applications are tried.
+		//
+		// The rest of this menu is a list of sites, and clicking one
+		// navigates into it: a walk that kept going ended up editing a
+		// fragment in the Global site, several screens from anything the
+		// lesson mentioned. Failing to find the application is a far better
+		// outcome than wandering off into unrelated administration.
+		//
+		const SECTIONS = ['Control Panel', 'Applications', 'Commerce'];
 
-		for (let index = 0; index < count; index++) {
-			const present = await page
-				.locator(`a:text-is("${application}")`)
-				.count()
-				.catch(() => 0);
+		const found = (
+			await page
+				.locator(
+					`${menu.root} a, ${menu.root} [role="tab"], ` +
+						`${menu.root} [role="button"][aria-expanded]`
+				)
+				.allInnerTexts()
+				.catch(() => [] as string[])
+		)
+			.map((name) => name.trim().split('\n')[0].trim())
+			.filter((name) => name && (name !== application));
 
-			if (present) {
+		const names = SECTIONS.filter((name) => found.includes(name));
+
+		for (const name of names) {
+			if (
+				await page
+					.locator(`a:text-is("${application}")`)
+					.count()
+					.catch(() => 0)
+			) {
 				break;
 			}
 
-			await tabs.nth(index).click({timeout: 2000}).catch(() => undefined);
+			if (!(await panel.isVisible().catch(() => false))) {
+				await page
+					.locator(menu.trigger)
+					.first()
+					.click({timeout: 4000})
+					.catch(() => undefined);
 
-			await page.waitForTimeout(SETTLE);
+				await page.waitForTimeout(SETTLE);
+			}
+
+			//
+			// Matched by substring, as the explicit-section path already
+			// does. :text-is() compares raw text content, and these anchors
+			// carry nested text besides their name, so an exact comparison
+			// never matched and the click silently did nothing.
+			//
+			await page
+				.locator(
+					`${menu.root} a:has-text("${name}"), ` +
+						`${menu.root} [role="tab"]:has-text("${name}"), ` +
+						`${menu.root} [role="button"]:has-text("${name}")`
+				)
+				.first()
+				.click({timeout: 4000})
+				.catch(() => undefined);
+
+			await page
+				.waitForLoadState('domcontentloaded', {timeout: 8000})
+				.catch(() => undefined);
+
+			//
+			// Waited for, not sampled. A section navigates to a new screen,
+			// and asking once whether the application is on it answers no
+			// while the screen is still arriving - so the walk moved on to
+			// the next section and eventually into a site.
+			//
+			await page
+				.locator(`a:text-is("${application}")`)
+				.first()
+				.waitFor({state: 'attached', timeout: 8000})
+				.catch(() => undefined);
 		}
 	}
 
@@ -379,6 +481,39 @@ export async function press(page: Page, label: string, within?: string) {
 		}
 
 		if (!control) {
+			//
+				// "Select Christian Carter" in a picker means tick the box in his
+			// row. The box carries no name of its own - the name is in a cell
+			// beside it - so no search by label can reach it, and the step read
+			// as naming a control the screen does not have.
+			//
+			const rowBox = scope
+				.locator(
+					`tr:has-text("${escaped}"), [role="row"]:has-text("${escaped}"), ` +
+						`li:has-text("${escaped}"), .list-group-item:has-text("${escaped}")`
+				)
+				.locator('input[type="checkbox"], [role="checkbox"]');
+
+			const rowBoxes: Locator[] = [];
+
+			for (const element of await rowBox.all().catch(() => [])) {
+				if (await element.isVisible().catch(() => false)) {
+					rowBoxes.push(element);
+				}
+			}
+
+			if (rowBoxes.length === 1) {
+				seen = true;
+
+				try {
+					await rowBoxes[0].check({timeout: 4000});
+
+					return;
+				}
+				catch (error) {
+					// Fall through to the controls below.
+				}
+			}
 			continue;
 		}
 
