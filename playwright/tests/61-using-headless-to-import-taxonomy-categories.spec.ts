@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -60,7 +60,7 @@ test('Using Headless to Import Taxonomy Categories', async ({page}) => {
 	await press(page, 'Execute');
 
 	// Step 12. Return to the HR Asset Library window and refresh the page.
-	// Not performed: no control or value named in this step.
+	await goHome(page);
 
 	// Step 13. Click *HR* in the breadcrumb menu to return to the library overview page.
 	await press(page, 'HR');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -38,7 +38,9 @@ test('Creating an Object Definition', async ({page}) => {
 	await press(page, 'Contact Us');
 
 	// Step 6. In the Details tab, configure these settings:
-	// Not entered: Scope > Scope, Scope > Panel Link, Configuration > Show Widget in Page Builder, Configuration > Enable Entry History in Audit Framework - chosen from a control rather than typed.
+	await toggle(page, 'Show Widget in Page Builder', false);
+	await toggle(page, 'Enable Entry History in Audit Framework', true);
+	// Not entered: Scope > Scope, Scope > Panel Link - chosen from a control rather than typed.
 
 	// Step 7. Click *Save*.
 	await press(page, 'Save');
@@ -48,9 +50,12 @@ test('Creating an Object Definition', async ({page}) => {
 
 	// Step 9. Click *New*, enter these details, and click *Save*:
 	await press(page, 'New');
+	await toggle(page, 'Enable Entry Translation', false);
+	await toggle(page, 'Mandatory', true);
+	await toggle(page, 'Accept Unique Values Only', false);
 	await fill(page, 'Label', 'Full Name');
 	await fill(page, 'Field Name', 'fullName');
-	// Not entered: Type, Enable Entry Translation, Mandatory, Accept Unique Values Only - chosen from a control rather than typed.
+	// Not entered: Type - chosen from a control rather than typed.
 	await press(page, 'Save');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/09-building-claritys-contact-us-form/images/03.png'});

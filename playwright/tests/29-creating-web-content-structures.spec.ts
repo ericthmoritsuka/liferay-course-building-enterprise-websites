@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -46,9 +46,9 @@ test('Creating Web Content Structures', async ({page}) => {
 
 	// Step 7. Select the *Text* field and configure these options:
 	await press(page, 'Text');
+	await toggle(page, 'Basic', true);
 	await fill(page, 'Basic', 'Message', {language: 'Label'});
 	await fill(page, 'Advanced', 'message', {language: 'Field Reference'});
-	// Not entered: Basic - chosen from a control rather than typed.
 
 	// Step 8. Click the *back arrow* (![](../../images/icon-angle-left.png)) to return to the Builder sidebar menu.
 	await press(page, 'back arrow');
@@ -60,12 +60,12 @@ test('Creating Web Content Structures', async ({page}) => {
 
 	// Step 10. Select the *Text* field and configure these options:
 	await press(page, 'Text');
+	await toggle(page, 'Basic', true);
 	await fill(page, 'Basic', 'Link Text', {language: 'Label'});
 	await fill(page, 'Advanced', 'linkText', {language: 'Field Reference'});
-	// Not entered: Basic - chosen from a control rather than typed.
 
 	// Step 11. Return to the Builder sidebar.
-	// Not performed: no control or value named in this step.
+	await goHome(page);
 
 	// Step 12. Drag and drop a *Link to Page* field on top of the *Link Text* field.
 	// Not performed: no control or value named in this step.

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -46,22 +46,25 @@ test('Defining Product Specifications', async ({page}) => {
 	await press(page, 'New');
 
 	// Step 8. Enter the following:
+	await toggle(page, 'Use in Faceted Navigation', true);
 	await fill(page, 'Label', 'Frame Material');
 	await fill(page, 'Description', 'The material of the frame.');
 	await fill(page, 'Key', 'frame-material');
-	// Not entered: Use in Faceted Navigation, Default Specification Group - chosen from a control rather than typed.
+	// Not entered: Default Specification Group - chosen from a control rather than typed.
 
 	// Step 9. Click *Save* to finish creating your specification label.
 	await press(page, 'Save');
 
 	// Step 10. Create two more specifications with these values:
+	await toggle(page, 'Use in Faceted Navigation', true);
+	await toggle(page, 'Use in Faceted Navigation', false);
 	await fill(page, 'Label', 'Frame Color');
 	await fill(page, 'Description', 'The color of the frame.');
 	await fill(page, 'Key', 'frame-color');
 	await fill(page, 'Label', 'Frame Size');
 	await fill(page, 'Description', 'The size of the frame (in default units).');
 	await fill(page, 'Key', 'frame-size');
-	// Not entered: Use in Faceted Navigation, Default Specification Group - chosen from a control rather than typed.
+	// Not entered: Default Specification Group - chosen from a control rather than typed.
 
 	// Step 11. Return to the *Specification Labels* page.
 	// Not performed: no control or value named in this step.

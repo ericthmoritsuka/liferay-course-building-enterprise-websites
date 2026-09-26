@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -137,8 +137,8 @@ test('Creating a Manual Collection', async ({page}) => {
 	await press(page, 'Mark as Default');
 
 	// Step 31. Return to the Home page and verify the mappings now work as expected.
-	// Not performed: no control or value named in this step.
+	await goHome(page);
 
-	// Screenshot skipped: the step it belongs to was not performed.
+	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/10.png'});
 
 });

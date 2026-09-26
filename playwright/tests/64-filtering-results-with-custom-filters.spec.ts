@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -46,8 +46,9 @@ test('Filtering Results with Custom Filters', async ({page}) => {
 	await press(page, 'Configuration');
 
 	// Step 7. For Filter Field, enter these values:
+	await toggle(page, 'Invisible', true);
 	await fill(page, 'Filter Field', 'classTypeId');
-	// Not entered: Filter Value, Invisible - chosen from a control rather than typed.
+	// Not entered: Filter Value - chosen from a control rather than typed.
 
 	// Step 8. Click *Save* and close the modal window.
 	await press(page, 'Save');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {fill, openMenu, openPageSettings, press} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -74,6 +74,7 @@ test('Adding Announcements to the Header', async ({page}) => {
 
 	// Step 15. Add a *Clarity Button* fragment to the Announcement container after the paragraph, select it, and configure th
 	await press(page, 'Clarity Button');
+	await toggle(page, 'General', true);
 	// Not entered: General - chosen from a control rather than typed.
 
 	// Step 16. Select the button's *link* sub-element and configure these settings:
