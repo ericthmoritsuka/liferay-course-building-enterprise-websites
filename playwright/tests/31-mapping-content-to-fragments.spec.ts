@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -44,7 +44,7 @@ test('Mapping Content to Fragments', async ({page}) => {
 	await press(page, 'Mapping');
 
 	// Step 7. For Item, click *Select Item* (![](../../images/icon-plus.png)).
-	await press(page, 'Select Item');
+	await press(page, 'Select Item', undefined, 'plus');
 
 	// Step 8. Go to the *Documents and Media* tab and click *Sites and Libraries* in the breadcrumb menu.
 	// Not performed: this step opens the file chooser the next step cannot use.

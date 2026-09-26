@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -39,7 +39,7 @@ test('Creating a Picklist', async ({page}) => {
 	await press(page, 'Inquiry Nature');
 
 	// Step 6. Under the Items section, click *New* (![](../../images/icon-plus.png)) and create the following items one by o
-	await press(page, 'New');
+	await press(page, 'New', undefined, 'plus');
 	await fill(page, '`Sales`', 'Sales');
 	await fill(page, '`Support`', 'Support');
 	await fill(page, '`Partnership`', 'Partnership');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -32,7 +32,7 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 4. Click *Back* (![Back Arrow](../../images/icon-angle-left.png)) to return to the Publications application page.
-	await press(page, 'Back');
+	await press(page, 'Back', undefined, 'angle-left');
 
 	// Step 5. Click *New* to create a new publication.
 	await press(page, 'New');
@@ -50,7 +50,7 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Content & Data', 'Web Content');
 
 	// Step 10. In the Web Content tab, click *Actions* (![](../../images/icon-actions.png)) for the Articles folder and selec
-	await press(page, 'Actions', 'Articles folder');
+	await press(page, 'Actions', 'Articles folder', 'actions');
 	await press(page, 'Edit');
 
 	// Step 11. Expand the *Structure Restrictions and Workflow* section and select *Set the default workflow for the folder's
@@ -68,7 +68,7 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await openMenu(page, 'Global Menu', null, 'Publications');
 
 	// Step 15. Click *Actions* (![](../../images/icon-actions.png)) for Article Publication, and select *Invite Users*.
-	await press(page, 'Actions', 'Article Publication');
+	await press(page, 'Actions', 'Article Publication', 'actions');
 	await press(page, 'Invite Users');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/08-implementing-claritys-content-publishing-workflow/images/06.png'});

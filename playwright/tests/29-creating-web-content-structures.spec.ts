@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -51,7 +51,7 @@ test('Creating Web Content Structures', async ({page}) => {
 	await fill(page, 'Advanced', 'message', {language: 'Field Reference'});
 
 	// Step 8. Click the *back arrow* (![](../../images/icon-angle-left.png)) to return to the Builder sidebar menu.
-	await press(page, 'back arrow');
+	await press(page, 'back arrow', undefined, 'angle-left');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/06.png'});
 

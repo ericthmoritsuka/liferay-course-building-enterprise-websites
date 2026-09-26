@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -59,7 +59,7 @@ test('Creating and Applying a Style Book', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 11. Click *Actions* (![](../../images/icon-actions.png)) for the Clarity Style Book**and select *Mark as Default f
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Mark as Default for Classic Theme');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/06.png'});

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -29,7 +29,7 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Page Tree', 'Open Positions');
 
 	// Step 3. Click *Edit* (![](../../images/icon-edit.png)).
-	await press(page, 'Edit');
+	await press(page, 'Edit', undefined, 'edit');
 
 	// Step 4. In the *Components* panel (![](../../images/icon-plus.png)), go to the *Widgets* tab.
 	await press(page, 'Widgets');
@@ -46,7 +46,7 @@ test('Adding Search Capabilities to the Job Listings Page', async ({page}) => {
 	// Not performed: the step does not name a field and a value plainly enough.
 
 	// Step 8. Select the widget, click *Actions* (![](../../images/icon-actions.png)) in the top right corner, and select *C
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Configuration');
 
 	// Step 9. Use the left arrow button (![](../../images/icon-angle-left.png)) to remove all asset types except for Web Con

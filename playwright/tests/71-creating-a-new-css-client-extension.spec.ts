@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -44,7 +44,7 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	await press(page, 'Home');
 
 	// Step 7. Click *Configure Page* (![](../../images/icon-cog.png)) and select the *Design* tab.
-	await press(page, 'Configure Page');
+	await press(page, 'Configure Page', undefined, 'cog');
 	await press(page, 'Design');
 
 	// Step 8. Scroll down and click *Add CSS Client Extensions*.
@@ -60,7 +60,7 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	await press(page, 'Save');
 
 	// Step 11. Return to the Home page, click *Edit* (![](../../images/icon-edit.png)), and click *Publish*.
-	await press(page, 'Edit');
+	await press(page, 'Edit', undefined, 'edit');
 	await press(page, 'Publish');
 
 	// Step 12. Open the *Site Menu* (![](../../images/icon-product-menu.png)), expand *Design*, and click *Fragments*.
@@ -84,7 +84,7 @@ test('Creating a New CSS Client Extension', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 18. Click *Actions* (![](../../images/icon-actions.png)) for the Clarity Gradient Container fragment, and select *
-	await press(page, 'Actions', 'Clarity Gradient Container fragment');
+	await press(page, 'Actions', 'Clarity Gradient Container fragment', 'actions');
 	await press(page, 'View Usages');
 
 	// Step 19. Check all boxes and click *Propagate*.

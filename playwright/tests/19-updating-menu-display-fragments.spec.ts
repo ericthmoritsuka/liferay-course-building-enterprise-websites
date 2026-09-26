@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -30,7 +30,7 @@ test('Updating Menu Display Fragments', async ({page}) => {
 	await press(page, 'Menu Display');
 
 	// Step 3. In the configuration right side panel, click *Change Source* (![](../../images/icon-change.png)) for the menu'
-	await press(page, 'Change Source', 'menu\'s source');
+	await press(page, 'Change Source', "menu\\'s source", 'change');
 
 	// Step 4. Click *Header Page Menu* and click *Select This Level*.
 	await press(page, 'Header Page Menu');

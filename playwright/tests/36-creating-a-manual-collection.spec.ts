@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -61,13 +61,13 @@ test('Creating a Manual Collection', async ({page}) => {
 
 	// Step 11. Go to the *Home* page and click *Edit* (![](../../images/icon-edit.png)).
 	await press(page, 'Home');
-	await press(page, 'Edit');
+	await press(page, 'Edit', undefined, 'edit');
 
 	// Step 12. Select the *Collection Display* fragment in the Helpful Articles container.
 	await press(page, 'Collection Display');
 
 	// Step 13. In the configuration side panel, click *Select Collection* (![](../../images/icon-add.png)).
-	await press(page, 'Select Collection');
+	await press(page, 'Select Collection', undefined, 'add');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/06-displaying-claritys-content/images/06.png'});
 
@@ -124,7 +124,7 @@ test('Creating a Manual Collection', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Design', 'Page Templates');
 
 	// Step 28. For the Article display page template, click *Actions* (![](../../images/icon-actions.png)) and click *Edit*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Edit');
 
 	// Step 29. Set the Subtype to *Article*, click *Save*, then click *Publish* for the template.
@@ -133,7 +133,7 @@ test('Creating a Manual Collection', async ({page}) => {
 	await press(page, 'Publish', 'template');
 
 	// Step 30. Click *Actions* (![](../../images/icon-actions.png)) again for Article and click *Mark as Default*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Mark as Default');
 
 	// Step 31. Return to the Home page and verify the mappings now work as expected.

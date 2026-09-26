@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -69,7 +69,7 @@ test('Building the Form', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 13. Click the *Site Menu* (![](../../images/icon-menu.png)), expand *Content & Data*, and click *Contact Us*. The 
-	await press(page, 'Site Menu');
+	await press(page, 'Site Menu', undefined, 'menu');
 	await press(page, 'Content & Data');
 	await press(page, 'Contact Us');
 

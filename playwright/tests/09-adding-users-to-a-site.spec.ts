@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -46,7 +46,7 @@ test('Adding Users to a Site', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/03-configuring-claritys-site/images/07.png'});
 
 	// Step 7. Click *Actions* (![](../../images/icon-actions.png)) for Christian Carter and select *Assign Roles*.
-	await press(page, 'Actions', 'Christian Carter');
+	await press(page, 'Actions', 'Christian Carter', 'actions');
 	await press(page, 'Assign Roles');
 
 	// Step 8. Select the *Site Content Contributor* role and click *Done*.

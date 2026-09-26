@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -70,7 +70,7 @@ test('Fine Tuning Manager Permissions', async ({page}) => {
 	await openMenu(page, 'Global Menu', null, 'User Groups');
 
 	// Step 15. Click *Actions* (![](../../images/icon-actions.png)) for the Marketing user group and select *Permissions*.
-	await press(page, 'Actions', 'Marketing user group');
+	await press(page, 'Actions', 'Marketing user group', 'actions');
 	await press(page, 'Permissions');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/13.png'});

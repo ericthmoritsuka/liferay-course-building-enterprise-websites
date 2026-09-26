@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -24,7 +24,7 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 
 	// Step 1. While editing the *Contact Us Responses* data set, go to the *Filters* tab, click *Add* (![](../../images/icon
 	await press(page, 'Filters');
-	await press(page, 'Add');
+	await press(page, 'Add', undefined, 'plus');
 	await press(page, 'Date Range');
 
 	// Step 2. Enter these details:
@@ -51,7 +51,7 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 
 	// Step 7. Go to the *Sorting* tab and click *Add* (![](../../images/icon-plus.png)).
 	await press(page, 'Sorting');
-	await press(page, 'Add');
+	await press(page, 'Add', undefined, 'plus');
 
 	// Step 8. Set Label to `Name` and Sort By to `fullName`.
 	// Not performed: no control or value named in this step.
@@ -70,14 +70,14 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 
 	// Step 11. Go to the *Actions* tab, click *Add* (![](../../images/icon-plus.png)), and enter these details:
 	await press(page, 'Actions');
-	await press(page, 'Add');
+	await press(page, 'Add', undefined, 'plus');
 	await fill(page, 'Label', 'View');
 	await fill(page, 'Icon', 'view');
 	await fill(page, 'Headless Action Key', 'get', {section: 'Action Behavior'});
 	// Not entered: Action Behavior > Type - chosen from a control rather than typed.
 
 	// Step 12. Open a new browser tab and go to `http://localhost:8080/web/clarity`
-	await visitAsGuest(page, 'http://localhost:8080/web/clarity`');
+	await visitInNewBrowser(page, 'http://localhost:8080/web/clarity`');
 
 	// Step 13. Open the Site Menu (![](../../images/icon-menu.png)), expand *Content & Data*, and select *Contact Us*.
 	await openMenu(page, 'Site Menu', 'Content & Data', 'Contact Us');

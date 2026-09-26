@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -26,7 +26,7 @@ test('Tailoring Experiences by User Group and Role', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 2. On the Clarity Enterprise Public Website, go to the home page and click *Edit* (![](../../images/icon-edit.png
-	await press(page, 'Edit');
+	await press(page, 'Edit', undefined, 'edit');
 
 	// Step 3. Click the *Experience* drop down at the top of the page and choose *New Experience*.
 	await press(page, 'Experience');

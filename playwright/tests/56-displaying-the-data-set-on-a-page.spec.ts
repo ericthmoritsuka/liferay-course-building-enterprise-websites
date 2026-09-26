@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -41,7 +41,7 @@ test('Displaying the Data Set on a Page', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 7. In the General panel, click *Add* (![](../../images/icon-plus.png)) to select a data set.
-	await press(page, 'Add');
+	await press(page, 'Add', undefined, 'plus');
 
 	// Step 8. Select the *Contact Us Responses* data set and click *Save*.
 	await press(page, 'Contact Us Responses');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -26,7 +26,7 @@ test('Defining Role Permissions', async ({page}) => {
 	await openMenu(page, 'Global Menu', 'Control Panel', 'Users and Organizations');
 
 	// Step 2. Click *Actions* (![](../../images/icon-actions.png)) for Christian Carter and select *Impersonate User*.
-	await press(page, 'Actions', 'Christian Carter');
+	await press(page, 'Actions', 'Christian Carter', 'actions');
 	await press(page, 'Impersonate User');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/04.png'});
@@ -90,7 +90,7 @@ test('Defining Role Permissions', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 18. Click *Actions* (![](../../images/icon-actions.png)) for the Marketing user group and select *Assign Roles*.
-	await press(page, 'Actions', 'Marketing user group');
+	await press(page, 'Actions', 'Marketing user group', 'actions');
 	await press(page, 'Assign Roles');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/04-security-and-identity-management/06-defining-and-assigning-roles-to-claritys-users/images/09.png'});

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -49,7 +49,7 @@ test('Generating Content with ChatGPT (Optional)', async ({page}) => {
 	await press(page, 'Basic Web Content');
 
 	// Step 9. Click *AI Creator* (![](../../images/icon-ai-creator.png)) to generate content with ChatGPT.
-	await press(page, 'AI Creator');
+	await press(page, 'AI Creator', undefined, 'ai-creator');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/04-creating-and-mapping-claritys-content/images/18.png'});
 

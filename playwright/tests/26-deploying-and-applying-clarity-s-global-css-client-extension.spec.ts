@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -38,7 +38,7 @@ test('Deploying and Applying Clarity\'s Global CSS Client Extension', async ({pa
 	await openMenu(page, 'Site Menu', 'Site Builder', 'Pages');
 
 	// Step 6. Click *Actions* (![](../../images/icon-actions.png)) in the Application Bar and select *Configuration*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Configuration');
 
 	// Step 7. Under Customization, click ![](../../images/icon-plus.png) *Add CSS Client Extensions,*select *Clarity Global 

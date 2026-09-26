@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -29,7 +29,7 @@ test('Updating Clarity\'s Default Theme, Favicon, and Logo', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Site Builder', 'Pages');
 
 	// Step 3. Click *Actions* (![](../../images/icon-actions.png)) in the Application Bar and select *Configuration*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Configuration');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/09-applying-claritys-brand-styling/images/01.png'});

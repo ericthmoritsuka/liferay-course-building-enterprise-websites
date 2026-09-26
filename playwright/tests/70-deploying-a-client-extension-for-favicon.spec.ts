@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -35,11 +35,11 @@ test('Deploying a Client Extension for Favicon', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Site Builder', 'Pages');
 
 	// Step 5. Click *Actions* (![](../../images/icon-actions.png)) in the Application Bar and select *Configuration*.
-	await press(page, 'Actions');
+	await press(page, 'Actions', undefined, 'actions');
 	await press(page, 'Configuration');
 
 	// Step 6. In the Design tab, click *Select Favicon* (![](../../images/icon-change.png)).
-	await press(page, 'Select Favicon');
+	await press(page, 'Select Favicon', undefined, 'change');
 
 	// Step 7. In the modal window, go to the *Client Extension* tab and select *Clarity Solution Theme Favicon Primary*.
 	await press(page, 'Client Extension');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -29,14 +29,14 @@ test('Creating a Secondary Master Page', async ({page}) => {
 	await openPageSettings(page, 'Masters tab of the');
 
 	// Step 1. While in the Masters tab of the Page Templates application, click *Actions* (![](../../images/icon-actions.png
-	await press(page, 'Actions', 'Primary Master Page');
+	await press(page, 'Actions', 'Primary Master Page', 'actions');
 	await press(page, 'Make a Copy');
 	await press(page, 'Master Page');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/05-site-building/06-designing-claritys-master-pages/images/16.png'});
 
 	// Step 2. Click *Actions* (![](../../images/icon-actions.png)) for the copy and select *Rename*.
-	await press(page, 'Actions', 'copy');
+	await press(page, 'Actions', 'copy', 'actions');
 	await press(page, 'Rename');
 
 	// Step 3. Enter `Secondary Master Page` and click *Save*.

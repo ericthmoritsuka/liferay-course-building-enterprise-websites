@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -33,7 +33,7 @@ test('Creating a Vocabulary', async ({page}) => {
 	await press(page, 'Categories');
 
 	// Step 4. Click *Add* (![](../../images/icon-plus.png)) next to Vocabularies to create a new vocabulary.
-	await press(page, 'Add', 'Vocabularies to create a new vocabulary');
+	await press(page, 'Add', 'Vocabularies to create a new vocabulary', 'plus');
 
 	// Step 5. Enter these details:
 	await toggle(page, 'Allow Multiple Categories', true);

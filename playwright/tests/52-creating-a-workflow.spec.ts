@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -79,7 +79,7 @@ test('Creating a Workflow', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/10-creating-a-dashboard-for-contact-us-responses/images/05.png'});
 
 	// Step 15. Click *Back* (![Back Arrow](../../images/icon-angle-left.png)) on the sidebar to continue editing the Follow U
-	await press(page, 'Back');
+	await press(page, 'Back', undefined, 'angle-left');
 
 	// Step 16. Under Notifications, click *New*.
 	await press(page, 'New');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -27,7 +27,7 @@ test('Setting Up the Product Pages', async ({page}) => {
 
 	// Step 2. Go to the *Products* page and click *Edit* (![](../../images/icon-actions.png)).
 	await press(page, 'Products');
-	await press(page, 'Edit');
+	await press(page, 'Edit', undefined, 'actions');
 
 	// Step 3. Open the *Components* panel (![](../../images/icon-plus.png)).
 	await press(page, 'Components');
@@ -219,7 +219,7 @@ test('Setting Up the Product Pages', async ({page}) => {
 	await press(page, 'Publish');
 
 	// Step 56. Click *Actions* (![](../../images/icon-actions.png)) for the Product Details template and select *Mark as Defa
-	await press(page, 'Actions', 'Product Details template');
+	await press(page, 'Actions', 'Product Details template', 'actions');
 	await press(page, 'Mark as Default');
 
 	// Step 57. View the *Product List* page and select a product.

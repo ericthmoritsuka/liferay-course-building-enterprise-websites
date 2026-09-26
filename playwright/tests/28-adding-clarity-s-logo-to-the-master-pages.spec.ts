@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -34,7 +34,7 @@ test('Adding Clarity\'s Logo to the Master Pages', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/03-managing-claritys-digital-assets/images/06.png'});
 
 	// Step 4. In the configuration side panel, click *Select Image* (![](../../images/icon-plus.png)).
-	await press(page, 'Select Image');
+	await press(page, 'Select Image', undefined, 'plus');
 
 	// Step 5. Click *Sites and Libraries* in the breadcrumb menu.
 	await press(page, 'Sites and Libraries');

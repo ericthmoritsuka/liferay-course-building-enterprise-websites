@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest, visitInNewBrowser} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -77,7 +77,7 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 	await press(page, 'Preview');
 
 	// Step 16. In the *Query Builder* tab, click *Add* (![](../../images/icon-add.png)) within Query Elements to add a second
-	await press(page, 'Add');
+	await press(page, 'Add', undefined, 'add');
 
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/04-personalizing-claritys-search-experiences/images/03.png'});
 
