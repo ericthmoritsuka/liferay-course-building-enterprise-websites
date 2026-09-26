@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -65,7 +65,7 @@ test('Creating Web Content Structures', async ({page}) => {
 	await fill(page, 'Advanced', 'linkText', {language: 'Field Reference'});
 
 	// Step 11. Return to the Builder sidebar.
-	await goHome(page);
+	// Not performed: no control or value named in this step.
 
 	// Step 12. Drag and drop a *Link to Page* field on top of the *Link Text* field.
 	// Not performed: no control or value named in this step.

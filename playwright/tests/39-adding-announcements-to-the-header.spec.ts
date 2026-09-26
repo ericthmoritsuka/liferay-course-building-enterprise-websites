@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -39,6 +39,7 @@ test('Adding Announcements to the Header', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Design', 'Page Templates');
 
 	// Step 6. Begin editing the *Primary Master Page* template.
+	await openPageEditor(page, 'Primary Master');
 	await press(page, 'Primary Master Page');
 
 	// Step 7. Select the *Header Announcement Bar* container, go to the Styles tab, and click the Value from Stylebook butto

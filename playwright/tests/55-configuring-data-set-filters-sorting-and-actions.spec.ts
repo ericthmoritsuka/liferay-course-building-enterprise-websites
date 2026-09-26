@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -77,7 +77,7 @@ test('Configuring Data Set Filters, Sorting, and Actions', async ({page}) => {
 	// Not entered: Action Behavior > Type - chosen from a control rather than typed.
 
 	// Step 12. Open a new browser tab and go to `http://localhost:8080/web/clarity`
-	// Not performed: no control or value named in this step.
+	await visitAsGuest(page, 'http://localhost:8080/web/clarity`');
 
 	// Step 13. Open the Site Menu (![](../../images/icon-menu.png)), expand *Content & Data*, and select *Contact Us*.
 	await openMenu(page, 'Site Menu', 'Content & Data', 'Contact Us');

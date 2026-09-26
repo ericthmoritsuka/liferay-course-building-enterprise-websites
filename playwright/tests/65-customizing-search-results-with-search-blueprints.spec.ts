@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -101,6 +101,7 @@ test('Customizing Search Results with Search Blueprints', async ({page}) => {
 	await press(page, 'Save');
 
 	// Step 22. Go to and begin editing the *Open Positions* page.
+	await openPageEditor(page, 'Open Positions');
 	await press(page, 'Open Positions');
 
 	// Step 23. From the *Components* panel, drag and drop a *Blueprints Options* widget into the Search Results and Options c

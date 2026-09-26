@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -97,6 +97,7 @@ test('Setting Up the Product Pages', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/06-content-authoring-and-management/07-using-claritys-products-as-content/images/14.png'});
 
 	// Step 22. Go to and begin editing the *Product List* page.
+	await openPageEditor(page, 'Product List');
 	await press(page, 'Product List');
 
 	// Step 23. From the *Components* panel (![](../../images/icon-plus.png)), drag and drop the *Category Content* widget jus

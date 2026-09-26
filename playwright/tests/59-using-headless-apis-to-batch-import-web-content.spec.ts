@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -23,7 +23,7 @@ test('Using Headless APIs to Batch Import Web Content', async ({page}) => {
 	await signIn(page, 'walter');
 
 	// Step 1. Return to the API Explorer browser tab: `http://localhost:8080/o/api`.
-	await goHome(page);
+	// Not performed: no control or value named in this step.
 
 	// Step 2. Scroll down to the StructuredContent section and expand the *postSiteStructuredContentBatch* endpoint.
 	await press(page, 'postSiteStructuredContentBatch');

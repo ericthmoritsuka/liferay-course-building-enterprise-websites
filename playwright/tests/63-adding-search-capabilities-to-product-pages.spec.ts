@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -28,7 +28,7 @@ test('Adding Search Capabilities to Product Pages', async ({page}) => {
 	await capture(page, {name: 'building-enterprise-websites-with-liferay/09-search/03-setting-up-claritys-search-pages/images/11.png'});
 
 	// Step 2. Begin editing the page.
-	// Not performed: no control or value named in this step.
+	await openPageEditor(page, 'the');
 
 	// Step 3. From the *Components* panel, drag and drop a *Category Facet* widget into the grid's left module between the s
 	// Not performed: no control or value named in this step.

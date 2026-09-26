@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -23,6 +23,7 @@ test('Displaying Content on the FAQ Page', async ({page}) => {
 	await signIn(page, 'walter');
 
 	// Step 1. Begin editing the *FAQ* page.
+	await openPageEditor(page, 'FAQ');
 	await press(page, 'FAQ');
 
 	// Step 2. Double click the *Image* fragment to configure its image-square sub-element.

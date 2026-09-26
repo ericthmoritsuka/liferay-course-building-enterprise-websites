@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -68,6 +68,7 @@ test('Creating and Applying a Style Book', async ({page}) => {
 	await openMenu(page, 'Site Menu', 'Design', 'Page Templates');
 
 	// Step 13. Begin editing the *Primary Master Page*.
+	await openPageEditor(page, 'Primary Master');
 	await press(page, 'Primary Master Page');
 
 	// Step 14. Click on *Page Design Options* (![](../../images/icon-look-and-feel-2.png)) in the left-side panel and select 

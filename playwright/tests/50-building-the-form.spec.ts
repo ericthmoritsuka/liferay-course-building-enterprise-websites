@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -26,6 +26,7 @@ test('Building the Form', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 2. Go to Clarity's public enterprise website and begin editing the *Contact Us* page.
+	await openPageEditor(page, 'Contact Us');
 	await press(page, 'Contact Us');
 
 	// Step 3. Drag and drop a *Form Container* into the Contact Form container:

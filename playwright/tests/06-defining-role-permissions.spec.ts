@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -62,7 +62,7 @@ test('Defining Role Permissions', async ({page}) => {
 	await press(page, 'Asset Libraries');
 
 	// Step 11. Return to the Clarity Admin tab.
-	await goHome(page);
+	// Not performed: no control or value named in this step.
 
 	// Step 12. In the *Global Menu* (![](../../images/icon-applications-menu.png)), go to the *Applications* tab and click *A
 	await openMenu(page, 'Global Menu', null, 'Applications');
@@ -87,7 +87,7 @@ test('Defining Role Permissions', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 17. Return to the Clarity Admin tab.
-	await goHome(page);
+	// Not performed: no control or value named in this step.
 
 	// Step 18. Click *Actions* (![](../../images/icon-actions.png)) for the Marketing user group and select *Assign Roles*.
 	await press(page, 'Actions', 'Marketing user group');
@@ -145,7 +145,7 @@ test('Defining Role Permissions', async ({page}) => {
 	// Not performed: no control or value named in this step.
 
 	// Step 32. Return to the Clarity Admin tab.
-	await goHome(page);
+	// Not performed: no control or value named in this step.
 
 	// Step 33. In the left menu, go to *Site and Asset Library Administration* &rarr; *Site Builder* &rarr; *Pages*.
 	await press(page, 'Site and Asset Library Administration');

@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -44,7 +44,7 @@ test('Configuring Publications and Workflow for Content', async ({page}) => {
 	await press(page, 'Create');
 
 	// Step 8. Return to *Clarity Public Enterprise Website*.
-	// Not performed: no control or value named in this step.
+	await goHome(page);
 
 	// Step 9. Open the *Site Menu* (![](../../images/icon-menu.png)), expand *Content & Data*, and click *Web Content*.
 	await openMenu(page, 'Site Menu', 'Content & Data', 'Web Content');

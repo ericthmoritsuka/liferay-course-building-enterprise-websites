@@ -10,7 +10,7 @@
  */
 import {test} from '@playwright/test';
 
-import {attach, fill, goHome, openMenu, openPageSettings, press, toggle} from '../helpers/liferay';
+import {attach, fill, goHome, openMenu, openPageEditor, openPageSettings, press, toggle, verifyHead, visitAsGuest} from '../helpers/liferay';
 import {CAPTURE, capture} from '../helpers/screenshot';
 import {signIn} from '../helpers/sign-in';
 
@@ -23,6 +23,7 @@ test('Adding Custom Fragments to Master Pages', async ({page}) => {
 	await signIn(page, 'walter');
 
 	// Step 1. Open the *Page Templates* application and begin editing *Primary Master Page*.
+	await openPageEditor(page, 'Primary Master');
 	await press(page, 'Page Templates');
 	await press(page, 'Primary Master Page');
 
